@@ -5,12 +5,13 @@ var Program = function () {
 	that.currentGameState = gameStates.start;
 	var preload = function () {
 		game.load.image("redBox", "resources/redBox.png");
+		game.load.image("lobby", "character\ Sprites/lobby.png");
 	};
 
 	var create = function () {
 		game.stage.backgroundColor = 0xeaeaea;
 
-		game.world.setBounds(-1000, -1000, 2000, 2000);
+		game.world.setBounds(-2000, -2000, 4000, 4000);
 
 		that.currentGameState = gameStates.start;
 
@@ -21,6 +22,8 @@ var Program = function () {
 		spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 		game.physics.startSystem(Phaser.Physics.ARCADE);
+
+		game.add.image(-900, -1100, 'lobby');
 		
 		characters.push(Person(0, 0));
 		characters.push(Person(70, 0));
