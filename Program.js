@@ -13,6 +13,7 @@ var Program = function () {
 	var startInit = function () {
 		that.currentGameState = gameStates.start;
 		player = Player();
+		characters.push(Person());
 	};
 
 	var update = function () {
@@ -22,7 +23,9 @@ var Program = function () {
 		time = now;
 
 		player.update(dt);
-
+		characters.forEach(function (elem) {
+			elem.update(dt);
+		});
 		renderer.render(stage);
 	};
 	

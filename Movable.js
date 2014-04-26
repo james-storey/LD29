@@ -1,6 +1,6 @@
 
 // global position and movement component
-var Moveable = function (sub) {
+var Movable = function (sub) {
 	that = sub || {};
 
 	that.position = {x: 0, y: 0};

@@ -21,7 +21,7 @@ var handleKey = function() {
 	var update = function() {
 		
 		if (program.currentGameState === gameStates.game) {
-
+			
 		}
 	};
 
