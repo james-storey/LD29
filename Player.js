@@ -20,8 +20,14 @@ var Player = function (startingBody) {
 	};
 
 	var nudge = function(x,y) {
-		currentAttachment.shape.position.x += x * 50;
-		currentAttachment.shape.position.y += y * 50;
+		//currentAttachment.shape.position.x += x * 50;
+		//currentAttachment.shape.position.y += y * 50;
+		var nudge = game.add.tween(currentAttachment.shape);
+		if(x != 0)nudge.to({x: currentAttachment.shape.position.x + x*25}, 100, Phaser.Easing.Linear.None, true)
+					  .to({x: currentAttachment.shape.position.x}, 100, Phaser.Easing.Linear.None, true);
+		if(y != 0)nudge.to({y: currentAttachment.shape.position.y + y*25}, 100, Phaser.Easing.Linear.None, true)
+					  .to({y: currentAttachment.shape.position.y}, 100, Phaser.Easing.Linear.None, true);
+		
 	};
 
 	that.update = function() {
