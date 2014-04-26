@@ -4,7 +4,7 @@ var Program = function () {
 
 	that.currentGameState = gameStates.start;
 	var preload = function () {
-
+		game.load.atlasJSONHash('fatman', 'character sprites/man04/man04sheet.png', 'character sprites/man04/man04sheet.json');
 	};
 
 	var create = function () {
@@ -20,8 +20,8 @@ var Program = function () {
 		leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
 		spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 		
-		characters.push(Person(0, 0));
-		characters.push(Person(70, 0));
+		characters.push(Person(0, 0, 'fatman'));
+		characters.push(Person(70, 0, 'fatman'));
 		player = Player(characters[0]);
 		game.camera.focusOnXY(0, 0);
 		//game.camera.follow(player.shape);
