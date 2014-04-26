@@ -1,9 +1,8 @@
 
 var Person = function (x, y, key) {
 	var that = {};
-
 	Entity(that);
-
+	
 	var shape = game.add.sprite(x,y, key);
 	shape.anchor.x = 0.5;
 	shape.anchor.y = 0.5;
@@ -15,9 +14,40 @@ var Person = function (x, y, key) {
 	shape.animations.add('upidle', ['u1'], 9, true);
 	shape.animations.add('downidle', ['d1'], 9, true);
 	shape.animations.add('rightidle', ['r1'], 9, true);
-	
+
+	var moveDir = new Phaser.Point(0,0);
+	var lookDir = lookState.down;
+	var speed = 1;
+	var moving = false
+	var movePattern = [];
+
+	var move = function(x, y) {
+		moving = true;
+		moveDir = new Phaser.Point(x,y).normalize();
+		if(moveDir.x > 0 && moveDir.x > y)
+		{
+			lookDir = lookState.right;
+		}
+		else if(moveDir.x < 0 && moveDir.x < moveDir.y)
+		{
+			lookDir = lookState.left;
+		}
+		else if(moveDir.y > 0 && moveDir.y > moveDir.x)
+		{
+			lookDir = lookState.up;
+		}
+		else
+		{
+			lookDir = lookState.down;
+		}
+	};
 
 	that.update = function () {
+		//if(moving)
+		//{
+		shape.position.x += moveDir.x*speed;
+		shape.position.y += moveDir.y*speed;
+		//}
 		switch(lookDir){
 			case lookState.down:
 			    if(moving) shape.animations.play('down', 9, true);
@@ -39,5 +69,7 @@ var Person = function (x, y, key) {
 	};
 
 	that.shape = shape;
+	that.move = move;
+	MoveLib.PaceH(that);
 	return that;
 };
