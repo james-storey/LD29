@@ -6,6 +6,7 @@ var Program = function () {
 	var preload = function () {
 		game.load.image("redBox", "resources/redBox.png");
 		game.load.image("lobby", "character\ Sprites/lobby.png");
+		game.load.image("security", "character\ Sprites/security.png")
 	};
 
 	var create = function () {
@@ -24,6 +25,7 @@ var Program = function () {
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 
 		game.add.image(-900, -1100, 'lobby');
+		game.add.image(1200, -1247, 'security');
 		
 		characters.push(Person(0, 0));
 		characters.push(Person(70, 0));

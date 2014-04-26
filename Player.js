@@ -11,6 +11,7 @@ var Player = function (startingBody) {
 	var shape = game.add.graphics(0, 0);
 	shape.lineStyle(3, 0x0000ff, 1);
 	shape.drawRect(-30, -30, 60, 60);
+	game.camera.follow(shape);
 
 
 	var switchBodies = function (target) {
