@@ -4,7 +4,7 @@ var Program = function () {
 
 	that.currentGameState = gameStates.start;
 	var preload = function () {
-
+		game.load.image("redBox", "resources/redBox.png");
 	};
 
 	var create = function () {
@@ -19,6 +19,8 @@ var Program = function () {
 		rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 		leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
 		spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
+		game.physics.startSystem(Phaser.Physics.ARCADE);
 		
 		characters.push(Person(0, 0));
 		characters.push(Person(70, 0));

@@ -19,8 +19,8 @@ var Player = function (startingBody) {
 	};
 
 	var nudge = function(x,y) {
-		currentAttachment.shape.position.x += x * 100;
-		currentAttachment.shape.position.y += y * 100;
+		currentAttachment.shape.position.x += x * 50;
+		currentAttachment.shape.position.y += y * 50;
 	};
 
 	that.update = function() {
@@ -49,8 +49,9 @@ var Player = function (startingBody) {
 
 					if(elem !== currentAttachment)
 					{
-						var dist = Math.sqrt(Math.pow(elem.shape.position.x - currentAttachment.shape.position.x, 2) +
-											Math.pow(elem.shape.position.y - currentAttachment.shape.position.y, 2));
+						var e = elem.shape.position;
+						var c = currentAttachment.shape.position;
+						var dist = Phaser.Math.distance(e.x, c.x, e.y, c.y);
 						console.log(dist);
 						if(dist < shortestDist)
 						{
@@ -62,7 +63,6 @@ var Player = function (startingBody) {
 				
 				if(shortestDist < 100)
 				{
-
 					switchBodies(closestHost);
 				}
 			}

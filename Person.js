@@ -4,15 +4,15 @@ var Person = function (x, y) {
 
 	Entity(that);
 
-	var shape = game.add.graphics(x,y);
+	var shape = game.add.sprite(60, 60, 'redBox');
+	shape.position.x = x;
+	shape.position.y = y;
+	shape.anchor.setTo(0.5, 0.5);
 
-	shape.lineStyle(1, 0x000000, 0);
-	shape.beginFill(0xff0000, 1);
-	shape.drawRect(-30, -30, 60, 60);
-	shape.endFill();
+	//game.physics.enable(shape, Phaser.Physics.ARCADE);
 
 	that.update = function () {
-
+		
 	};
 
 	that.shape = shape;
