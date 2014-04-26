@@ -42,6 +42,11 @@ var Person = function (x, y, key) {
 		}
 	};
 
+	var stop = function() {
+		moving = false;
+		moveDir = new Phaser.Point(0,0);
+	};
+
 	that.update = function () {
 		//if(moving)
 		//{
@@ -61,7 +66,7 @@ var Person = function (x, y, key) {
 			    if(moving) shape.animations.play('up', 9, true);
 			    else shape.animations.play('upidle', 9, true);
 			    break;
-			case lookState.down:
+			case lookState.right:
 			    if(moving) shape.animations.play('right', 9, true);
 			    else shape.animations.play('rightidle', 9, true);
 			    break;
@@ -70,6 +75,8 @@ var Person = function (x, y, key) {
 
 	that.shape = shape;
 	that.move = move;
+	that.stop = stop;
+	that.lookDir = lookDir;
 	MoveLib.PaceH(that);
 	return that;
 };
