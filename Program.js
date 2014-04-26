@@ -13,14 +13,21 @@ var Program = function () {
 		game.world.setBounds(-1000, -1000, 2000, 2000);
 
 		that.currentGameState = gameStates.start;
-		player = Player();
-		characters.push(Person());
+
+		upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+		downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+		rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+		leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+		spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+		
+		characters.push(Person(0, 0));
+		characters.push(Person(70, 0));
+		player = Player(characters[0]);
 		game.camera.focusOnXY(0, 0);
 		//game.camera.follow(player.shape);
 	};
 
 	var update = function () {
-
 		player.update();
 		characters.forEach(function (elem) {
 			elem.update();
