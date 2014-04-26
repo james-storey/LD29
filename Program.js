@@ -29,9 +29,10 @@ var Program = function () {
 		game.add.image(-900, -1100, 'lobby');
 		game.add.image(1200, -1247, 'security');
 		
-		characters.push(Person(0, 0, 'fatman'));
-		characters.push(Person(70, 0, 'fatman'));
+		characters.push(Person(0, 50, 'fatman'));
+		characters.push(Person(70, 50, 'fatman'));
 		player = Player(characters[0]);
+		MoveLib.PaceHL(characters[1]);
 		game.camera.focusOnXY(0, 0);
 		//game.camera.follow(player.shape);
 	};

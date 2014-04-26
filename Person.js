@@ -77,6 +77,5 @@ var Person = function (x, y, key) {
 	that.move = move;
 	that.stop = stop;
 	that.lookDir = lookDir;
-	MoveLib.PaceH(that);
 	return that;
 };
