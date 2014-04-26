@@ -3,38 +3,36 @@ var Program = function () {
 	var that = {};
 
 	that.currentGameState = gameStates.start;
+	var preload = function () {
 
-	stage = new PIXI.Stage(0xeaeaea, true);
-	renderer = PIXI.autoDetectRenderer(width, height);
-	document.body.appendChild(renderer.view);
-	window.addEventListener('keydown', handleKey.down, false);
-	window.addEventListener('keyup', handleKey.up, false);
+	};
 
-	var startInit = function () {
+	var create = function () {
+		game.stage.backgroundColor = 0xeaeaea;
+
+		game.world.setBounds(-1000, -1000, 2000, 2000);
+
 		that.currentGameState = gameStates.start;
 		player = Player();
 		characters.push(Person());
+		game.camera.focusOnXY(0, 0);
+		//game.camera.follow(player.shape);
 	};
 
 	var update = function () {
-		requestAnimFrame (update);
-		var now = new Date().getTime();
-		var dt = now - (time || now);
-		time = now;
 
-		player.update(dt);
+		player.update();
 		characters.forEach(function (elem) {
-			elem.update(dt);
+			elem.update();
 		});
-		renderer.render(stage);
 	};
-	
-	that.startInit = startInit;
-	that.update = update;
 
+	var render = function () {
+
+	};
+
+	game = new Phaser.Game(1000, 640, Phaser.AUTO, "phaser", 
+			{preload: preload, create: create, update: update, render: render});
 	return that;
-};
+}();
 
-var program = new Program();
-program.startInit();
-program.update();

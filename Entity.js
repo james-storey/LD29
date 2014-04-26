@@ -10,7 +10,7 @@ var Entity = function (sub) {
 	};
 
 	var update = function() {
-
+		
 	};
 
 	that.execute = execute;

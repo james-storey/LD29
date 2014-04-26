@@ -5,8 +5,7 @@ var Person = function () {
 	Entity(that);
 	Movable(that);
 
-	var shape = new PIXI.Graphics();
-	stage.addChild(shape);
+	var shape = game.add.graphics(0, 0);
 
 	shape.lineStyle(1, 0x000000, 0);
 	shape.beginFill(0xff0000, 1);
@@ -14,8 +13,7 @@ var Person = function () {
 	shape.endFill();
 
 	that.update = function (deltaTime) {
-		shape.position.x = that.position.x + view.x;
-		shape.position.y = that.position.y + view.y;
+
 	};
 
 	return that;
