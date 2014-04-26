@@ -1,10 +1,4 @@
 
-var stage, renderer, player;
-var gameStates = {start: 0, game: 1, gameOver: 2 };
-var characters = [];
-var width = 1000, height = 640;
-var time = 0;
-
 var Program = function () {
 	var that = {};
 
@@ -18,6 +12,7 @@ var Program = function () {
 
 	var startInit = function () {
 		that.currentGameState = gameStates.start;
+		player = Player();
 	};
 
 	var update = function () {
@@ -25,6 +20,8 @@ var Program = function () {
 		var now = new Date().getTime();
 		var dt = now - (time || now);
 		time = now;
+
+		player.update(dt);
 
 		renderer.render(stage);
 	};
