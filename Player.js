@@ -52,7 +52,7 @@ var Player = function (startingBody) {
 					{
 						var e = elem.shape.position;
 						var c = currentAttachment.shape.position;
-						var dist = Phaser.Math.distance(e.x, c.x, e.y, c.y);
+						var dist = Phaser.Math.distance(e.x, e.y, c.x, c.y);
 						console.log(dist);
 						if(dist < shortestDist)
 						{
@@ -70,7 +70,11 @@ var Player = function (startingBody) {
 			keyAction = true;
 		}
 
-		if(upKey.isDown === false && downKey.isDown === false && rightKey.isDown === false && leftKey.isDown === false && spaceKey.isDown === false)
+		if(upKey.isDown === false && 
+			downKey.isDown === false && 
+			rightKey.isDown === false && 
+			leftKey.isDown === false && 
+			spaceKey.isDown === false)
 		{
 			keyAction = false;
 		}
