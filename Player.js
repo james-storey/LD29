@@ -8,7 +8,7 @@ var Player = function (startingBody) {
 	var currentAttachment = startingBody;
 
 	var shape = game.add.graphics(0, 0);
-	
+
 	shape.lineStyle(3, 0x0000ff, 1);
 	shape.drawRect(-30, -30, 60, 60);
 	game.camera.follow(shape);
@@ -18,6 +18,10 @@ var Player = function (startingBody) {
 	var switchBodies = function (target) {
 		// play anim
 		currentAttachment = target;
+
+		game.time.events.add(1000, function() {
+			currentAttachment.think();
+		});
 	};
 
 	var nudge = function(x,y) {
@@ -67,7 +71,7 @@ var Player = function (startingBody) {
 						}
 					}
 				});
-				
+
 				if(shortestDist < 100)
 				{
 					switchBodies(closestHost);
@@ -76,10 +80,10 @@ var Player = function (startingBody) {
 			keyAction = true;
 		}
 
-		if(upKey.isDown === false && 
-			downKey.isDown === false && 
-			rightKey.isDown === false && 
-			leftKey.isDown === false && 
+		if(upKey.isDown === false &&
+			downKey.isDown === false &&
+			rightKey.isDown === false &&
+			leftKey.isDown === false &&
 			spaceKey.isDown === false)
 		{
 			keyAction = false;
