@@ -32,6 +32,7 @@ var Program = function () {
 		game.load.image("redBox", "resources/redBox.png");
 		game.load.image("lobby", "character_sprites/lobbypixel.png");
 		game.load.image("security", "character_sprites/security.png");
+		game.load.image("layout", "character_sprites/layout.png");
 
 		game.load.json("thoughts", "resources/thoughts.json");
 	};
@@ -53,14 +54,18 @@ var Program = function () {
 
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 
-		game.add.image(-900, -1100, 'lobby');
-		game.add.image(1200, -1247, 'security');
+		//game.add.image(-900, -1100, 'lobby');
+		//game.add.image(1200, -1247, 'security');
+		game.add.image(-2160, -2160, 'layout');
 
 		characters.push(Person(0, -500, 'fatman', 'adam'));
 		characters.push(Person(70, -500, 'longHair', 'patrick'));
 		player = Player(characters[0]);
-		MoveLib.repeat(characters[0], 3000, 1000, MoveLib.PaceV);
-		MoveLib.repeat(characters[1], 3000, 1000, MoveLib.PaceH);
+
+		peopleInit();
+
+		MoveLib.repeat(characters[0], 1000, 3000, MoveLib.PaceV);
+		MoveLib.repeat(characters[1], 1000, 3000, MoveLib.PaceH);
 		game.camera.focusOnXY(0, 0);
 	};
 
@@ -83,6 +88,9 @@ var Program = function () {
 
 		player.update();
 		characters.forEach(function (elem) {
+			elem.update();
+		});
+		minorCharacters.forEach(function (elem) {
 			elem.update();
 		});
 	};

@@ -5,8 +5,7 @@ var MoveLib = function () {
 
 	var repeat = function (context, pauseTime, walkTime, f)
 	{
-		var cTime = f(context, walkTime, pauseTime);
-		console.log(cTime);
+		var cTime = f(context, pauseTime, walkTime);
 		game.time.events.add(cTime, repeat, this, context, pauseTime, walkTime, f);
 	}
 
@@ -38,18 +37,18 @@ var MoveLib = function () {
 	var walkCircleCCW = function (context, pauseTime, walkTime)
 	{
 		var cTime = walkLeft(context, pauseTime, walkTime);
-		cTime += walkDown(context, pauseTime, walkTime);
-		cTime += walkRight(context, pauseTime, walkTime);
-		cTime += walkUp(context, pauseTime, walkTime);
+		cTime = walkDown(context, cTime + pauseTime, walkTime);
+		cTime = walkRight(context, cTime + pauseTime, walkTime);
+		cTime = walkUp(context, cTime + pauseTime, walkTime);
 		return cTime;
 	};
 
 	var walkCircleCW = function (context, pauseTime, walkTime)
 	{
 		var cTime = walkRight(context, pauseTime, walkTime);
-		cTime += walkUp(context, pauseTime, walkTime);
-		cTime += walkLeft(context, pauseTime, walkTime);
-		cTime += walkDown(context, pauseTime, walkTime);
+		cTime = walkUp(context, pauseTime, walkTime);
+		cTime = walkLeft(context, pauseTime, walkTime);
+		cTime = walkDown(context, pauseTime, walkTime);
 		return cTime;
 	};
 

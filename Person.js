@@ -1,5 +1,5 @@
 
-var Person = function (x, y, key, name) {
+var Person = function (x, y, key, name, startDir) {
 	var that = {};
 
 	var shape = game.add.sprite(x,y, key);
@@ -23,7 +23,7 @@ var Person = function (x, y, key, name) {
 	thought.visible = false;
 
 	var moveDir = new Phaser.Point(0,0);
-	var lookDir = lookState.down;
+	var lookDir = startDir || lookState.down;
 	var speed = 1;
 	var moving = false;
 
@@ -114,6 +114,28 @@ var Person = function (x, y, key, name) {
 };
 
 
-var personInit = function () {
+var peopleInit = function () {
+	minorCharacters.push(Person(-1150, 1038, 'bluewoman', 'Attendent1'));
+	minorCharacters.push(Person(-1400, 1045, 'redwoman', 'Attendent2'));
+	minorCharacters.push(Person(-1660, 1035, 'blueman', 'Attendent3'));
+	minorCharacters.push(Person(-1910, 1045, 'bluewoman', 'Attendent4'));
+
+	minorCharacters.push(Person(-1150, 1151, 'blueman', 'Queue11', lookState.up));
+	minorCharacters.push(Person(-1150, 1231, 'redwoman', 'Queue12', lookState.up));
+	minorCharacters.push(Person(-1160, 1340, 'baldman', 'Queue13', lookState.up));
+
+	minorCharacters.push(Person(-1410, 1156, 'backpack', 'Queue21', lookState.up));
 	
+	characters.push(Person(-1460, 1270, 'suitman', 'adam', lookState.right));
+	characters.push(Person(-1410, 1270, 'suitwoman', 'eve', lookState.left));
+
+	var wait1 = Person(-1690, 1425, 'baldman', 'wait1', lookState.right);
+	MoveLib.repeat(wait1, 1000, 1000, MoveLib.walkCircleCCW);
+	minorCharacters.push(wait1);
+
+	var pace1 = Person(-1500, 1615, 'backpack', 'pace1');
+	MoveLib.repeat(pace1, 1000, 6000, MoveLib.PaceH);
+	minorCharacters.push(pace1);
+
+	minorCharacters.push(Person(-880, 1755, 'longHair', 'hall1', lookState.up));
 };
