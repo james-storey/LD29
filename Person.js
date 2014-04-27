@@ -68,8 +68,8 @@ var Person = function (x, y, key, name) {
 		thought.visible = true;
 
 		game.time.events.add(4000, function() {
-			//thought.visible = false;
-			//thought_bg.clear();
+			thought.visible = false;
+			thought_bg.clear();
 		});
 	}
 
