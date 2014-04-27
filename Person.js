@@ -55,7 +55,7 @@ var Person = function (x, y, key, name) {
 
 	var think = function() {
 		var thought_json = game.cache.getJSON('thoughts');
-		thought.setText(thought_json[name][0]);
+		thought.setText(thought_json[name]["script"][0]);
 
 		thought.visible = true;
 

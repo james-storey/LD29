@@ -1,18 +1,52 @@
 {
-	"patrick": [
-		"I'm a police officer.",
-		"blah blah blah"
-	],
-	"jim": [
-		"I wear a hat!",
-		"bla, blah, blaaa blah blah"
-	],
-	"adam": [
-		"I'm an expert engineer.",
-		"blah, blah blah, blaah blah"
-	],
-	"eve": [
-		"I'm Adam's wife",
-		"blah"
-	]
+	"patrick": {
+		"to": {
+			"all": [
+				"blah blah blah"
+			]
+		},
+		"script": [
+			"I'm a police officer"
+		]
+	},
+	"jim": {
+		"to": {
+			"all": [
+				"I wear a hat!",
+				"bla, blah, blaaa blah blah"
+			]
+		},
+		"script": [
+			"I'm obsessed with hats"
+		]
+	},
+	"adam": {
+		"to": {
+			"eve": [
+				"Oh. I'm sorry",
+				"Well babe, I'm off for four weeks"
+			]
+		},
+		"script": [
+			"I can't believe she let us just stand there and talk...",
+			"I feel strange...",
+			"hmmm... well, long flights always make me uneasy",
+			"Alright... nice and calm, like you go through all the time.",
+			"goddammit",
+			"Pretty sure this thing is busted",
+			"Ugh...",
+			"Yeah, yeah it's busted"
+		]
+	},
+	"eve": {
+		"to": {
+			"adam": [
+				"I'll miss you hon"
+			]
+		},
+		"script": [
+			"Did we really just stand there talking?",
+			"I feel so embarrased..."
+		]
+	}
 }
