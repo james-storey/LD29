@@ -23,6 +23,8 @@ var Person = function (x, y, key, name) {
 			align: "center"
 	});
 	thought.visible = false;
+	thought.wordWrap = true;
+	thought.wordWrapWidth = 240;
 
 	// for display object sorting
 	group.add(shape);
