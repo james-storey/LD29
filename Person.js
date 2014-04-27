@@ -21,7 +21,7 @@ var Person = function (x, y, key, name) {
 			font: "12pt uni_05_53",
 			fill: "#000000",
 			align: "center"
-		});
+	});
 	thought.visible = false;
 
 	// for display object sorting
@@ -64,12 +64,25 @@ var Person = function (x, y, key, name) {
 		var thought_json = game.cache.getJSON('thoughts');
 		thought.setText(thought_json[name][0]);
 
+		generate_thought_graphic(thought_bg, thought.width, thought.height, 10);
 		thought.visible = true;
 
 		game.time.events.add(4000, function() {
-			thought.visible = false;
-			thought_bg.clear();
+			//thought.visible = false;
+			//thought_bg.clear();
 		});
+	}
+
+	// FIXME: encapsulate in a thought class
+	var generate_thought_graphic = function(graphic, w, h, pad) {
+		pad = pad || 10;
+
+		graphic.clear();
+		graphic.beginFill(0xFFFFFF);
+		graphic.drawRect(-pad, -pad, w + pad * 2, h + pad * 2);
+		graphic.endFill();
+
+		return graphic;
 	}
 
 	that.update = function () {
@@ -80,13 +93,8 @@ var Person = function (x, y, key, name) {
 			thought.x = shape.position.x + shape.width;
 			thought.y = shape.position.y - shape.height;
 
-			thought_bg.clear();
-			thought_bg.beginFill(0xFFFFFF);
-			thought_bg.drawRect(thought.x - 10.0,
-								thought.y - 10.0,
-								thought.width + 20.0,
-								thought.height + 20.0);
-			thought_bg.endFill();
+			thought_bg.position.x = thought.x;
+			thought_bg.position.y = thought.y;
 		}
 
 		switch(lookDir){
@@ -116,8 +124,10 @@ var Person = function (x, y, key, name) {
 	that.stop = stop;
 	that.lookDir = lookDir;
 	that.speed;
+
 	that.think = think;
 	that.name = name;
 	that.thought = thought;
+	that.thought_bg = thought_bg;  // FIXME: encapsulate into a thought class
 	return that;
 };
