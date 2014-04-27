@@ -1,7 +1,7 @@
 
 var Person = function (x, y, key) {
 	var that = {};
-	
+
 	var shape = game.add.sprite(x,y, key);
 	shape.anchor.x = 0.5;
 	shape.anchor.y = 0.5;

@@ -10,9 +10,11 @@ var Program = function () {
 								'character sprites/man_in_hat/man_in_hat.json');
 		game.load.atlasJSONHash('man', 'character sprites/man01/man01.png', 
 								'character sprites/man01/man01.json');
+		game.load.atlasJSONHash('fatman', 'character_sprites/man04/man04sheet.png',
+								'character_sprites/man04/man04sheet.json');
 		game.load.image("redBox", "resources/redBox.png");
-		game.load.image("lobby", "character\ Sprites/lobby.png");
-		game.load.image("security", "character\ Sprites/security.png")
+		game.load.image("lobby", "character_sprites/lobby.png");
+		game.load.image("security", "character_sprites/security.png")
 	};
 
 	var create = function () {
@@ -32,7 +34,7 @@ var Program = function () {
 
 		game.add.image(-900, -1100, 'lobby');
 		game.add.image(1200, -1247, 'security');
-		
+
 		characters.push(Person(0, 50, 'fatman'));
 		characters.push(Person(70, 50, 'man'));
 		player = Player(characters[0]);
@@ -52,7 +54,7 @@ var Program = function () {
 
 	};
 
-	game = new Phaser.Game(1000, 640, Phaser.AUTO, "phaser", 
+	game = new Phaser.Game(1000, 640, Phaser.AUTO, "phaser",
 			{preload: preload, create: create, update: update, render: render});
 	return that;
 }();
