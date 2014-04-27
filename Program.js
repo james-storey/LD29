@@ -8,6 +8,23 @@ var Program = function () {
 								'character_sprites/man04/man04sheet.json');
 		game.load.atlasJSONHash('longHair', 'character_sprites/man06/man06.png',
 								'character_sprites/man06/man06.json');
+		game.load.atlasJSONHash('blueman', 'character_sprites/man05/man05.png',
+								'character_sprites/man05/man05.json');
+		game.load.atlasJSONHash('suitman', 'character_sprites/man01/man01.png',
+								'character_sprites/man01/man01.json');
+		game.load.atlasJSONHash('backpack', 'character_sprites/res_viewer/res.png',
+								'character_sprites/res_viewer/res.json');
+		game.load.atlasJSONHash('hatman', 'character_sprites/man_in_hat/man_in_hat.png',
+								'character_sprites/man_in_hat/man_in_hat.json');
+		game.load.atlasJSONHash('baldman', 'character_sprites/bald/bald.png',
+								'character_sprites/bald/bald.json');
+		game.load.atlasJSONHash('bluewoman', 'character_sprites/woman1/woman1.png',
+								'character_sprites/woman1/woman1.json');
+		game.load.atlasJSONHash('suitwoman', 'character_sprites/woman2/woman2.png',
+								'character_sprites/woman2/woman2.json');
+		game.load.atlasJSONHash('redwoman', 'character_sprites/woman3/woman3.png',
+								'character_sprites/woman3/woman3.json');
+
 		game.load.image("redBox", "resources/redBox.png");
 		game.load.image("lobby", "character_sprites/lobbypixel.png");
 		game.load.image("security", "character_sprites/security.png");
