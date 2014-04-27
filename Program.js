@@ -1,6 +1,10 @@
 
 var Program = function () {
 	var that = {};
+	var debugMode;
+	var esc;
+	var isDebugMode = false;
+	var keyPressed = false;
 
 	that.currentGameState = gameStates.start;
 	var preload = function () {
@@ -44,6 +48,8 @@ var Program = function () {
 		rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 		leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
 		spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+		debugMode = game.input.keyboard.addKey(Phaser.Keyboard.TILDE);
+		esc = game.input.keyboard.addKey(Phaser.Keyboard.ESC);
 
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -59,6 +65,22 @@ var Program = function () {
 	};
 
 	var update = function () {
+		
+		if(debugMode.justPressed(50) && keyPressed === false)
+		{
+			keyPressed = true;
+			isDebugMode = true;
+			console.log("debugMode: " + isDebugMode)
+			debugInit();
+		}
+		else if(esc.justPressed(50) && keyPressed === true)
+		{
+			keyPressed = false;
+			isDebugMode = false;
+			console.log("debugMode: " + isDebugMode)
+			debugInit();
+		}
+
 		player.update();
 		characters.forEach(function (elem) {
 			elem.update();
@@ -66,6 +88,17 @@ var Program = function () {
 	};
 
 	var render = function () {
+
+	};
+
+	var debugInit = function() {
+		player.debugMode(isDebugMode);
+
+		if(isDebugMode === false)
+		{
+			//close debug stuff
+			return;
+		}
 
 	};
 

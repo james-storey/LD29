@@ -112,3 +112,8 @@ var Person = function (x, y, key, name) {
 	that.thought = thought;
 	return that;
 };
+
+
+var personInit = function () {
+	
+};

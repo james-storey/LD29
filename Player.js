@@ -32,7 +32,7 @@ var Player = function (startingBody) {
 		}
 	};
 
-	that.update = function() {
+	var update = function() {
 		if(keyAction === false) {
 			if(upKey.isDown === true)
 			{
@@ -91,9 +91,47 @@ var Player = function (startingBody) {
 		shape.y = currentAttachment.shape.position.y;
 	};
 
+	var debugUpdate = function () {
+		var speed = 10;
+		if(upKey.isDown === true) 
+		{
+			shape.y -= speed;
+		}
+		else if(downKey.isDown === true)
+		{
+			shape.y += speed;
+		}
+		else if(rightKey.isDown === true)
+		{
+			shape.x += speed;
+		}
+		else if(leftKey.isDown === true)
+		{
+			shape.x -= speed;
+		}
+		
+	};
+
+	var debugMode = function(isDebug)
+	{
+		if(isDebug)
+		{
+			that.update = debugUpdate;
+			game.camera.follow(shape);
+		}
+		else
+		{
+			that.update = update;
+			game.camera.follow(currentAttachment.shape,
+				Phaser.Camera.FOLLOW_TOPDOWN_TIGHT);
+		}
+	};
+
 	that.shape = shape;
 	that.nudge = nudge;
+	that.update = update;
 	//that.nudgetween = nudgetween;
+	that.debugMode = debugMode;
 	that.switchBodies = switchBodies;
 	return that;
 };
