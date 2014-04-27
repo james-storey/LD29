@@ -4,7 +4,7 @@ var Program = function () {
 
 	that.currentGameState = gameStates.start;
 	var preload = function () {
-		game.load.atlasJSONHash('fatman', 'character sprites/man04/man04sheet.png', 
+		game.load.atlasJSONHash('fatman', 'character sprites/man04/man04sheet.png',
 								'character sprites/man04/man04sheet.json');
 		game.load.image("redBox", "resources/redBox.png");
 		game.load.image("lobby", "character\ Sprites/lobby.png");
@@ -28,7 +28,7 @@ var Program = function () {
 
 		game.add.image(-900, -1100, 'lobby');
 		game.add.image(1200, -1247, 'security');
-		
+
 		characters.push(Person(0, 50, 'fatman'));
 		characters.push(Person(70, 50, 'fatman'));
 		player = Player(characters[0]);
@@ -48,7 +48,7 @@ var Program = function () {
 
 	};
 
-	game = new Phaser.Game(1000, 640, Phaser.AUTO, "phaser", 
+	game = new Phaser.Game(1000, 640, Phaser.AUTO, "phaser",
 			{preload: preload, create: create, update: update, render: render});
 	return that;
 }();
