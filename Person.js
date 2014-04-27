@@ -115,6 +115,8 @@ var Person = function (x, y, key, name, startDir) {
 
 
 var peopleInit = function () {
+
+	// lobby people 
 	minorCharacters.push(Person(-1150, 1038, 'bluewoman', 'Attendent1'));
 	minorCharacters.push(Person(-1400, 1045, 'redwoman', 'Attendent2'));
 	minorCharacters.push(Person(-1660, 1035, 'blueman', 'Attendent3'));
@@ -137,5 +139,27 @@ var peopleInit = function () {
 	MoveLib.repeat(pace1, 1000, 6000, MoveLib.PaceH);
 	minorCharacters.push(pace1);
 
-	minorCharacters.push(Person(-880, 1755, 'longHair', 'hall1', lookState.up));
+	minorCharacters.push(Person(-880, 1755, 'longHair', 'tickerWatcher', lookState.up));
+
+	// hallway walkers
+
+	var hall3 = Person(-580, 1455, 'blueman', 'hall3');
+	minorCharacters.push(hall3);
+	MoveLib.repeat(hall3, 3000, 24000, MoveLib.PaceH, 1);
+
+	var hall4 = Person(500, 1600, 'backpack', 'hall4');
+	minorCharacters.push(hall4);
+	MoveLib.repeat(hall4, 2000, 15000, MoveLib.PaceH, -1);
+
+	var hall1 = Person(-770, 1629, 'suitman', 'hall1');
+	minorCharacters.push(hall1);
+	MoveLib.repeat(hall1, 1000, 30000, MoveLib.PaceH, 1);
+
+	var hall5 = Person(10, 1690, 'longHair', 'hall5');
+	minorCharacters.push(hall5);
+	MoveLib.repeat(hall5, 1000, 21000, MoveLib.PaceH, 1);
+
+	var hall2 = Person(1440, 1719, 'redwoman', 'hall2');
+	minorCharacters.push(hall2);
+	MoveLib.repeat(hall2, 2000, 19000, MoveLib.PaceH, -1);
 };
