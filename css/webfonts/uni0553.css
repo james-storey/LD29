@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'uni_05_53';
+  src: url('uni0553-webfont.eot');
+  src: url('uni0553-webfont.eot?#iefix') format('embedded-opentype'),
+       url('uni0553-webfont.woff') format('woff'),
+       url('uni0553-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
