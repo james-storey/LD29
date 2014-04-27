@@ -102,7 +102,7 @@ var Player = function (startingBody) {
 
 	var debugUpdate = function () {
 		var speed = 10;
-		if(upKey.isDown === true) 
+		if(upKey.isDown === true)
 		{
 			shape.y -= speed;
 		}
@@ -118,7 +118,7 @@ var Player = function (startingBody) {
 		{
 			shape.x -= speed;
 		}
-		
+
 	};
 
 	var debugMode = function(isDebug)
@@ -142,5 +142,6 @@ var Player = function (startingBody) {
 	//that.nudgetween = nudgetween;
 	that.debugMode = debugMode;
 	that.switchBodies = switchBodies;
+	that.currentAttachment = currentAttachment;
 	return that;
 };
