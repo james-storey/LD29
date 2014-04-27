@@ -99,21 +99,21 @@ var Person = function (x, y, key, name) {
 
 		switch(lookDir){
 			case lookState.down:
-			    if(moving) shape.animations.play('down', 5, true);
-			    else shape.animations.play('downidle', 5, true);
-			    break;
+				if(moving) shape.animations.play('down', 5, true);
+				else shape.animations.play('downidle', 5, true);
+				break;
 			case lookState.left:
-			    if(moving) shape.animations.play('left', 5, true);
-			    else shape.animations.play('leftidle', 5, true);
-			    break;
+				if(moving) shape.animations.play('left', 5, true);
+				else shape.animations.play('leftidle', 5, true);
+				break;
 			case lookState.up:
-			    if(moving) shape.animations.play('up', 5, true);
-			    else shape.animations.play('upidle', 5, true);
-			    break;
+				if(moving) shape.animations.play('up', 5, true);
+				else shape.animations.play('upidle', 5, true);
+				break;
 			case lookState.right:
-			    if(moving) shape.animations.play('right', 5, true);
-			    else shape.animations.play('rightidle', 5, true);
-			    break;
+				if(moving) shape.animations.play('right', 5, true);
+				else shape.animations.play('rightidle', 5, true);
+				break;
 		}
 	};
 
