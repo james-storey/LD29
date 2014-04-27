@@ -4,11 +4,11 @@ var Program = function () {
 
 	that.currentGameState = gameStates.start;
 	var preload = function () {
-		game.load.atlasJSONHash('fatman', 'character sprites/man04/man04sheet.png',
-								'character sprites/man04/man04sheet.json');
+		game.load.atlasJSONHash('fatman', 'character_sprites/man04/man04sheet.png',
+								'character_sprites/man04/man04sheet.json');
 		game.load.image("redBox", "resources/redBox.png");
-		game.load.image("lobby", "character\ Sprites/lobby.png");
-		game.load.image("security", "character\ Sprites/security.png")
+		game.load.image("lobby", "character_sprites/lobby.png");
+		game.load.image("security", "character_sprites/security.png")
 	};
 
 	var create = function () {
