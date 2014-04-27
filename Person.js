@@ -31,7 +31,7 @@ var Person = function (x, y, key) {
 		{
 			lookDir = lookState.left;
 		}
-		else if(moveDir.y > 0 && moveDir.y > moveDir.x)
+		else if(moveDir.y < 0 && moveDir.y < moveDir.x)
 		{
 			lookDir = lookState.up;
 		}

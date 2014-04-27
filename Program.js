@@ -32,7 +32,8 @@ var Program = function () {
 		characters.push(Person(0, 50, 'fatman'));
 		characters.push(Person(70, 50, 'fatman'));
 		player = Player(characters[0]);
-		MoveLib.PaceHL(characters[1]);
+		MoveLib.repeat(characters[0], 3000, 1000, MoveLib.PaceV);
+		MoveLib.repeat(characters[1], 3000, 1000, MoveLib.PaceH);
 		game.camera.focusOnXY(0, 0);
 		//game.camera.follow(player.shape);
 	};

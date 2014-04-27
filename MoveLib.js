@@ -3,20 +3,95 @@
 var MoveLib = function () {
 	var that = {};
 
-	var PaceH = function (context) {
-		game.time.events.add(1000, context.move, context, 1, 0);
-		game.time.events.add(3000, context.stop, context);
-		game.time.events.add(4000, context.move, context, -1, 0);
-		game.time.events.add(6000, context.stop, context);
+	var repeat = function (context, pauseTime, walkTime, f)
+	{
+		var cTime = f(context, walkTime, pauseTime);
+		console.log(cTime);
+		game.time.events.add(cTime, repeat, this, context, pauseTime, walkTime, f);
+	}
+
+	var PaceH = function (context, pauseTime, walkTime) {
+		var cTime = pauseTime;
+		game.time.events.add(cTime, context.move, context, 1, 0);
+		cTime += walkTime;
+		game.time.events.add(cTime, context.stop, context);
+		cTime += pauseTime;
+		game.time.events.add(cTime, context.move, context, -1, 0);
+		cTime += walkTime;
+		game.time.events.add(cTime, context.stop, context);
+		return cTime;
+	};
+
+	var PaceV = function (context,pauseTime, walkTime) {
+		var cTime = pauseTime;
+		game.time.events.add(cTime, context.move, context, 0, 1);
+		cTime += walkTime;
+		game.time.events.add(cTime, context.stop, context);
+		cTime += pauseTime;
+		game.time.events.add(cTime, context.move, context, 0, -1);
+		cTime += walkTime;
+		game.time.events.add(cTime, context.stop, context);
+		return cTime;
 
 	};
 
-	var PaceHL = function (context) {
-		PaceH(context);
-		game.time.events.add(6000, PaceHL, this, context);
-	}
+	var walkCircleCCW = function (context, pauseTime, walkTime)
+	{
+		var cTime = walkLeft(context, pauseTime, walkTime);
+		cTime += walkDown(context, pauseTime, walkTime);
+		cTime += walkRight(context, pauseTime, walkTime);
+		cTime += walkUp(context, pauseTime, walkTime);
+		return cTime;
+	};
 
+	var walkCircleCW = function (context, pauseTime, walkTime)
+	{
+		var cTime = walkRight(context, pauseTime, walkTime);
+		cTime += walkUp(context, pauseTime, walkTime);
+		cTime += walkLeft(context, pauseTime, walkTime);
+		cTime += walkDown(context, pauseTime, walkTime);
+		return cTime;
+	};
+
+	var walkLeft = function (context, delay, walkTime) {
+		var cTime = delay;
+		game.time.events.add(cTime, context.move, context, -1, 0);
+		cTime += walkTime;
+		game.time.events.add(cTime, context.stop, context);
+		return cTime;
+	};
+
+	var walkRight = function (context, delay, walkTime) {
+		var cTime = delay;
+		game.time.events.add(cTime, context.move, context, 1, 0);
+		cTime += walkTime;
+		game.time.events.add(cTime, context.stop, context);
+		return cTime;
+	};
+	var walkUp = function (context, delay, walkTime) {
+		var cTime = delay;
+		game.time.events.add(cTime, context.move, context, 0, 1);
+		cTime += walkTime;
+		game.time.events.add(cTime, context.stop, context);
+		return cTime;
+	};
+	var walkDown = function (context, delay, walkTime) {
+		var cTime = delay;
+		game.time.events.add(cTime, context.move, context, 0, -1);
+		cTime += walkTime;
+		game.time.events.add(cTime, context.stop, context);
+		return cTime;
+	};
+
+
+	that.repeat = repeat;
 	that.PaceH = PaceH;
-	that.PaceHL = PaceHL;
+	that.PaceV = PaceV;
+	that.walkCircleCCW = walkCircleCCW;
+	that.walkCircleCW = walkCircleCW;
+	that.walkLeft = walkLeft;
+	that.walkRight = walkRight;
+	that.walkUp = walkUp;
+	that.walkDown = walkDown;
 	return that;
 }();
