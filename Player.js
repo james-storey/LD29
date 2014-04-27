@@ -8,6 +8,7 @@ var Player = function (startingBody) {
 	var currentAttachment = startingBody;
 
 	var shape = game.add.graphics(0, 0);
+	shape.name = "player";
 
 	shape.lineStyle(3, 0x0000ff, 1);
 	shape.drawRect(-30, -30, 60, 60);
