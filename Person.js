@@ -17,8 +17,7 @@ var Person = function (x, y, key) {
 	var moveDir = new Phaser.Point(0,0);
 	var lookDir = lookState.down;
 	var speed = 1;
-	var moving = false
-	var movePattern = [];
+	var moving = false;
 
 	var move = function(x, y) {
 		moving = true;
@@ -47,11 +46,8 @@ var Person = function (x, y, key) {
 	};
 
 	that.update = function () {
-		//if(moving)
-		//{
 		shape.position.x += moveDir.x*speed;
 		shape.position.y += moveDir.y*speed;
-		//}
 		switch(lookDir){
 			case lookState.down:
 			    if(moving) shape.animations.play('down', 9, true);
@@ -76,5 +72,6 @@ var Person = function (x, y, key) {
 	that.move = move;
 	that.stop = stop;
 	that.lookDir = lookDir;
+	that.speed;
 	return that;
 };
