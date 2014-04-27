@@ -3,7 +3,6 @@
 var Player = function (startingBody) {
 	var that = {};
 
-	Entity(that);
 	var keyAction = false;
 
 	var currentAttachment = startingBody;
