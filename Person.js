@@ -3,6 +3,7 @@ var Person = function (x, y, key, name, startDir) {
 	var that = {};
 
 	var group = game.add.group(undefined, name + "_grp");
+	var thought_group = game.add.group(undefined, name + "_thought_grp");
 
 	var shape = game.add.sprite(x,y, key);
 	shape.anchor.x = 0.5;
@@ -16,8 +17,8 @@ var Person = function (x, y, key, name, startDir) {
 	shape.animations.add('downidle', ['d1'], 6, true);
 	shape.animations.add('rightidle', ['r1'], 6, true);
 
-	var thought_bg = game.add.graphics(0, 0);
-	var thought = game.add.text(0, 0, "", {
+	var thought_bg = game.add.graphics(x, y);
+	var thought = game.add.text(x, y, "", {
 			font: "12pt uni_05_53",
 			fill: "#000000",
 			align: "center"
@@ -26,8 +27,8 @@ var Person = function (x, y, key, name, startDir) {
 
 	// for display object sorting
 	group.add(shape);
-	group.add(thought_bg);
-	group.add(thought);
+	thought_group.add(thought_bg);
+	thought_group.add(thought);
 
 	var moveDir = new Phaser.Point(0,0);
 	var lookDir = startDir || lookState.down;
@@ -118,6 +119,7 @@ var Person = function (x, y, key, name, startDir) {
 	};
 
 	that.group = group;
+	that.thought_group = thought_group;
 
 	that.shape = shape;
 	that.move = move;
@@ -135,7 +137,7 @@ var Person = function (x, y, key, name, startDir) {
 
 var peopleInit = function () {
 
-	// lobby people 
+	// lobby people
 	minorCharacters.push(Person(-1150, 1038, 'bluewoman', 'Attendent1'));
 	minorCharacters.push(Person(-1400, 1045, 'redwoman', 'Attendent2'));
 	minorCharacters.push(Person(-1660, 1035, 'blueman', 'Attendent3'));
@@ -146,7 +148,7 @@ var peopleInit = function () {
 	minorCharacters.push(Person(-1160, 1340, 'baldman', 'Queue13', lookState.up));
 
 	minorCharacters.push(Person(-1410, 1156, 'backpack', 'Queue21', lookState.up));
-	
+
 	characters.push(Person(-1460, 1270, 'suitman', 'adam', lookState.right));
 	characters.push(Person(-1410, 1270, 'suitwoman', 'eve', lookState.left));
 
