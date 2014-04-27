@@ -11,14 +11,12 @@ var Player = function (startingBody) {
 
 	shape.lineStyle(3, 0x0000ff, 1);
 	shape.drawRect(-30, -30, 60, 60);
-	game.camera.follow(shape);
-
-
+	game.camera.follow(currentAttachment.shape, Phaser.Camera.FOLLOW_TOPDOWN_TIGHT);
 
 	var switchBodies = function (target) {
 		// play anim
 		currentAttachment = target;
-
+		game.camera.follow(currentAttachment.shape, Phaser.Camera.FOLLOW_TOPDOWN_TIGHT);
 		game.time.events.add(1000, function() {
 			currentAttachment.think();
 		});
@@ -89,8 +87,8 @@ var Player = function (startingBody) {
 			keyAction = false;
 		}
 
-		shape.position.x = currentAttachment.shape.position.x;
-		shape.position.y = currentAttachment.shape.position.y;
+		shape.x = currentAttachment.shape.position.x;
+		shape.y = currentAttachment.shape.position.y;
 	};
 
 	that.shape = shape;
