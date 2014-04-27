@@ -6,6 +6,10 @@ var Program = function () {
 	var preload = function () {
 		game.load.atlasJSONHash('fatman', 'character sprites/man04/man04sheet.png', 
 								'character sprites/man04/man04sheet.json');
+		game.load.atlasJSONHash('hatman', 'character sprites/man_in_hat/man_in_hat.png', 
+								'character sprites/man_in_hat/man_in_hat.json');
+		game.load.atlasJSONHash('man', 'character sprites/man01/man01.png', 
+								'character sprites/man01/man01.json');
 		game.load.image("redBox", "resources/redBox.png");
 		game.load.image("lobby", "character\ Sprites/lobby.png");
 		game.load.image("security", "character\ Sprites/security.png")
@@ -30,7 +34,7 @@ var Program = function () {
 		game.add.image(1200, -1247, 'security');
 		
 		characters.push(Person(0, 50, 'fatman'));
-		characters.push(Person(70, 50, 'fatman'));
+		characters.push(Person(70, 50, 'man'));
 		player = Player(characters[0]);
 		MoveLib.PaceHL(characters[1]);
 		game.camera.focusOnXY(0, 0);
