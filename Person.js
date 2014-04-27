@@ -2,6 +2,8 @@
 var Person = function (x, y, key, name, startDir) {
 	var that = {};
 
+	var group = game.add.group(undefined, name + "_grp");
+
 	var shape = game.add.sprite(x,y, key);
 	shape.anchor.x = 0.5;
 	shape.anchor.y = 0.5;
@@ -19,8 +21,13 @@ var Person = function (x, y, key, name, startDir) {
 			font: "12pt uni_05_53",
 			fill: "#000000",
 			align: "center"
-		});
+	});
 	thought.visible = false;
+
+	// for display object sorting
+	group.add(shape);
+	group.add(thought_bg);
+	group.add(thought);
 
 	var moveDir = new Phaser.Point(0,0);
 	var lookDir = startDir || lookState.down;
@@ -57,12 +64,25 @@ var Person = function (x, y, key, name, startDir) {
 		var thought_json = game.cache.getJSON('thoughts');
 		thought.setText(thought_json[name][0]);
 
+		generate_thought_graphic(thought_bg, thought.width, thought.height, 10);
 		thought.visible = true;
 
 		game.time.events.add(4000, function() {
 			thought.visible = false;
 			thought_bg.clear();
 		});
+	}
+
+	// FIXME: encapsulate in a thought class
+	var generate_thought_graphic = function(graphic, w, h, pad) {
+		pad = pad || 10;
+
+		graphic.clear();
+		graphic.beginFill(0xFFFFFF);
+		graphic.drawRect(-pad, -pad, w + pad * 2, h + pad * 2);
+		graphic.endFill();
+
+		return graphic;
 	}
 
 	that.update = function () {
@@ -73,43 +93,42 @@ var Person = function (x, y, key, name, startDir) {
 			thought.x = shape.position.x + shape.width;
 			thought.y = shape.position.y - shape.height;
 
-			thought_bg.clear();
-			thought_bg.beginFill(0xFFFFFF);
-			thought_bg.drawRect(thought.x - 10.0,
-								thought.y - 10.0,
-								thought.width + 20.0,
-								thought.height + 20.0);
-			thought_bg.endFill();
+			thought_bg.position.x = thought.x;
+			thought_bg.position.y = thought.y;
 		}
 
 		switch(lookDir){
 			case lookState.down:
-			    if(moving) shape.animations.play('down', 5, true);
-			    else shape.animations.play('downidle', 5, true);
-			    break;
+				if(moving) shape.animations.play('down', 5, true);
+				else shape.animations.play('downidle', 5, true);
+				break;
 			case lookState.left:
-			    if(moving) shape.animations.play('left', 5, true);
-			    else shape.animations.play('leftidle', 5, true);
-			    break;
+				if(moving) shape.animations.play('left', 5, true);
+				else shape.animations.play('leftidle', 5, true);
+				break;
 			case lookState.up:
-			    if(moving) shape.animations.play('up', 5, true);
-			    else shape.animations.play('upidle', 5, true);
-			    break;
+				if(moving) shape.animations.play('up', 5, true);
+				else shape.animations.play('upidle', 5, true);
+				break;
 			case lookState.right:
-			    if(moving) shape.animations.play('right', 5, true);
-			    else shape.animations.play('rightidle', 5, true);
-			    break;
+				if(moving) shape.animations.play('right', 5, true);
+				else shape.animations.play('rightidle', 5, true);
+				break;
 		}
 	};
+
+	that.group = group;
 
 	that.shape = shape;
 	that.move = move;
 	that.stop = stop;
 	that.lookDir = lookDir;
 	that.speed;
+
 	that.think = think;
 	that.name = name;
 	that.thought = thought;
+	that.thought_bg = thought_bg;  // FIXME: encapsulate into a thought class
 	return that;
 };
 

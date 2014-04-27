@@ -8,15 +8,24 @@ var Player = function (startingBody) {
 	var currentAttachment = startingBody;
 
 	var shape = game.add.graphics(0, 0);
+	shape.name = "player";
 
 	shape.lineStyle(3, 0x0000ff, 1);
 	shape.drawRect(-30, -30, 60, 60);
 	game.camera.follow(currentAttachment.shape, Phaser.Camera.FOLLOW_TOPDOWN_TIGHT);
 
+	currentAttachment.group.add(shape);
+
 	var switchBodies = function (target) {
 		// play anim
 		currentAttachment = target;
 		game.camera.follow(currentAttachment.shape, Phaser.Camera.FOLLOW_TOPDOWN_TIGHT);
+
+		// automatically removes from the last display group, no need to
+		// call group.remove first
+		currentAttachment.group.add(shape);
+
+		// trigger a thought callout
 		game.time.events.add(1000, function() {
 			currentAttachment.think();
 		});

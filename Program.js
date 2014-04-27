@@ -54,19 +54,28 @@ var Program = function () {
 
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 
-		//game.add.image(-900, -1100, 'lobby');
-		//game.add.image(1200, -1247, 'security');
-		game.add.image(-2160, -2160, 'layout');
+		
+		groups = {};
+		groups.background = game.add.group(undefined, "background_grp");
+		groups.background.z = -1;
+		that.groups = groups;
+		game.add.image(-2160, -2160, 'layout', undefined, groups.background);
+
+		//game.add.image(-900, -1100, 'lobby', undefined, groups.background);
+		//game.add.image(1200, -1247, 'security', undefined, groups.background);
 
 		characters.push(Person(0, -500, 'fatman', 'adam'));
 		characters.push(Person(70, -500, 'longHair', 'patrick'));
+
 		player = Player(characters[0]);
 
 		peopleInit();
 
-		MoveLib.repeat(characters[0], 1000, 3000, MoveLib.PaceV);
+		MoveLib.repeat(characters[0], 1100, 3000, MoveLib.PaceV, 1);
 		MoveLib.repeat(characters[1], 1000, 3000, MoveLib.PaceH);
 		game.camera.focusOnXY(0, 0);
+
+		game.world.sort('y', Phaser.Group.SORT_DESCENDING);
 	};
 
 	var update = function () {
