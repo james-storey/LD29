@@ -11,7 +11,7 @@ var Program = function () {
 		game.load.atlasJSONHash('man', 'character sprites/man01/man01.png', 
 								'character sprites/man01/man01.json');
 		game.load.image("redBox", "resources/redBox.png");
-		game.load.image("lobby", "character\ Sprites/lobby.png");
+		game.load.image("lobby", "character\ Sprites/lobbypixel.png");
 		game.load.image("security", "character\ Sprites/security.png")
 	};
 
@@ -30,7 +30,7 @@ var Program = function () {
 
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 
-		game.add.image(-900, -1100, 'lobby');
+		game.add.image(-900, -510, 'lobby');
 		game.add.image(1200, -1247, 'security');
 		
 		characters.push(Person(0, 50, 'fatman'));
