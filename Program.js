@@ -54,32 +54,51 @@ var Program = function () {
 
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 
-		
+
 		groups = {};
-		groups.background = game.add.group(undefined, "background_grp");
-		groups.background.z = -1;
 		that.groups = groups;
+		groups.background = game.add.group(undefined, "background_grp");
+		groups.background.z = 0;
+
+		groups.midground = game.add.group(undefined, "midground_grp");
+		groups.midground.z = 1;
+		groups.textground = game.add.group(undefined, "textground_grp");
+		groups.textground.z = 2;
+		groups.overlay = game.add.group(undefined, "overlay_grp");
+		groups.overlay.z = 3;
+
 		game.add.image(-2160, -2160, 'layout', undefined, groups.background);
 
 		//game.add.image(-900, -1100, 'lobby', undefined, groups.background);
 		//game.add.image(1200, -1247, 'security', undefined, groups.background);
 
-		characters.push(Person(0, -500, 'fatman', 'adam'));
-		characters.push(Person(70, -500, 'longHair', 'patrick'));
-
-		player = Player(characters[0]);
+		//characters.push(Person(0, -500, 'fatman', 'adam'));
+		//characters.push(Person(70, -500, 'longHair', 'patrick'));
 
 		peopleInit();
+		player = Player(characters[0]);
 
 		MoveLib.repeat(characters[0], 1100, 3000, MoveLib.PaceV, 1);
 		MoveLib.repeat(characters[1], 1000, 3000, MoveLib.PaceH);
 		game.camera.focusOnXY(0, 0);
 
-		game.world.sort('y', Phaser.Group.SORT_DESCENDING);
+		minorCharacters.forEach(function (person) {
+			groups.midground.add(person.group);
+			groups.textground.add(person.thought_group);
+		});
+		characters.forEach(function (person) {
+			groups.midground.add(person.group);
+			groups.textground.add(person.thought_group);
+		});
+		groups.midground.add(player.shape);
+
+		groups.midground.sort('y', Phaser.Group.SORT_DESCENDING);
+		groups.textground.sort('y', Phaser.Group.SORT_DESCENDING);
+		groups.overlay.sort('y', Phaser.Group.SORT_DESCENDING);
 	};
 
 	var update = function () {
-		
+
 		if(debugMode.justPressed(50) && keyPressed === false)
 		{
 			keyPressed = true;
@@ -96,6 +115,8 @@ var Program = function () {
 		}
 
 		player.update();
+		groups.textground.bringToTop(player.currentAttachment.thought_group);
+
 		characters.forEach(function (elem) {
 			elem.update();
 		});
