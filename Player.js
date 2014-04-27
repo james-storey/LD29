@@ -18,6 +18,10 @@ var Player = function (startingBody) {
 	var switchBodies = function (target) {
 		// play anim
 		currentAttachment = target;
+
+		game.time.events.add(1000, function() {
+			currentAttachment.think();
+		});
 	};
 
 	var nudge = function(x,y) {

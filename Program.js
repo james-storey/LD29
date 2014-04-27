@@ -8,7 +8,9 @@ var Program = function () {
 								'character_sprites/man04/man04sheet.json');
 		game.load.image("redBox", "resources/redBox.png");
 		game.load.image("lobby", "character_sprites/lobby.png");
-		game.load.image("security", "character_sprites/security.png")
+		game.load.image("security", "character_sprites/security.png");
+
+		game.load.json("thoughts", "resources/thoughts.json");
 	};
 
 	var create = function () {
