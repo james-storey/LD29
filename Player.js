@@ -9,9 +9,11 @@ var Player = function (startingBody) {
 	var currentAttachment = startingBody;
 
 	var shape = game.add.graphics(0, 0);
+	
 	shape.lineStyle(3, 0x0000ff, 1);
 	shape.drawRect(-30, -30, 60, 60);
 	game.camera.follow(shape);
+
 
 
 	var switchBodies = function (target) {
@@ -20,14 +22,13 @@ var Player = function (startingBody) {
 	};
 
 	var nudge = function(x,y) {
-		//currentAttachment.shape.position.x += x * 50;
-		//currentAttachment.shape.position.y += y * 50;
-		var nudge = game.add.tween(currentAttachment.shape);
-		if(x != 0)nudge.to({x: currentAttachment.shape.position.x + x*25}, 100, Phaser.Easing.Linear.None, true)
-					  .to({x: currentAttachment.shape.position.x}, 100, Phaser.Easing.Linear.None, true);
-		if(y != 0)nudge.to({y: currentAttachment.shape.position.y + y*25}, 100, Phaser.Easing.Linear.None, true)
-					  .to({y: currentAttachment.shape.position.y}, 100, Phaser.Easing.Linear.None, true);
-		
+		if(!game.tweens.isTweening(currentAttachment.shape)){
+			var nudgetween = game.add.tween(currentAttachment.shape);
+			if(x != 0)nudgetween.to({x: currentAttachment.shape.position.x + x*25}, 100, Phaser.Easing.Linear.None, true)
+						  .to({x: currentAttachment.shape.position.x}, 100, Phaser.Easing.Linear.None, true);
+			if(y != 0)nudgetween.to({y: currentAttachment.shape.position.y + y*25}, 100, Phaser.Easing.Linear.None, true)
+						  .to({y: currentAttachment.shape.position.y}, 100, Phaser.Easing.Linear.None, true);
+		}
 	};
 
 	that.update = function() {
@@ -91,6 +92,7 @@ var Player = function (startingBody) {
 
 	that.shape = shape;
 	that.nudge = nudge;
+	//that.nudgetween = nudgetween;
 	that.switchBodies = switchBodies;
 	return that;
 };
