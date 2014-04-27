@@ -16,7 +16,7 @@ var Person = function (x, y, key, name) {
 
 	var thought_bg = game.add.graphics(0, 0);
 	var thought = game.add.text(0, 0, "", {
-			font: "12pt Arial",
+			font: "12pt uni_05_53",
 			fill: "#000000",
 			align: "center"
 		});
