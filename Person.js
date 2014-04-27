@@ -24,6 +24,8 @@ var Person = function (x, y, key, name, startDir) {
 			align: "center"
 	});
 	thought.visible = false;
+	thought.wordWrap = true;
+	thought.wordWrapWidth = 240;
 
 	// for display object sorting
 	group.add(shape);
@@ -63,7 +65,7 @@ var Person = function (x, y, key, name, startDir) {
 
 	var think = function() {
 		var thought_json = game.cache.getJSON('thoughts');
-		thought.setText(thought_json[name][0]);
+		thought.setText(thought_json[name]["script"][0]);
 
 		generate_thought_graphic(thought_bg, thought.width, thought.height, 10);
 		thought.visible = true;
