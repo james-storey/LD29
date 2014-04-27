@@ -137,7 +137,7 @@ var Person = function (x, y, key, name, startDir) {
 
 var peopleInit = function () {
 
-	// lobby people 
+	// lobby people
 	minorCharacters.push(Person(-1150, 1038, 'bluewoman', 'Attendent1'));
 	minorCharacters.push(Person(-1400, 1045, 'redwoman', 'Attendent2'));
 	minorCharacters.push(Person(-1660, 1035, 'blueman', 'Attendent3'));
@@ -148,7 +148,7 @@ var peopleInit = function () {
 	minorCharacters.push(Person(-1160, 1340, 'baldman', 'Queue13', lookState.up));
 
 	minorCharacters.push(Person(-1410, 1156, 'backpack', 'Queue21', lookState.up));
-	
+
 	characters.push(Person(-1460, 1270, 'suitman', 'adam', lookState.right));
 	characters.push(Person(-1410, 1270, 'suitwoman', 'eve', lookState.left));
 
