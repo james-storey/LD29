@@ -5,14 +5,14 @@ var Person = function (x, y, key, name) {
 	var shape = game.add.sprite(x,y, key);
 	shape.anchor.x = 0.5;
 	shape.anchor.y = 0.5;
-	shape.animations.add('left', ['l2','l1','l0'], 9, true);
-	shape.animations.add('up', ['u0','u1','u2'], 9, true);
-	shape.animations.add('down', ['d0','d1','d2'], 9, true);
-	shape.animations.add('right', ['r0','r1','r2'], 9, true);
-	shape.animations.add('leftidle', ['l1'], 9, true);
-	shape.animations.add('upidle', ['u1'], 9, true);
-	shape.animations.add('downidle', ['d1'], 9, true);
-	shape.animations.add('rightidle', ['r1'], 9, true);
+	shape.animations.add('left', ['l2','l1','l0','l1'], 9, true);
+	shape.animations.add('up', ['u0','u1','u2','u1'], 9, true);
+	shape.animations.add('down', ['d0','d1','d2','d1'], 9, true);
+	shape.animations.add('right', ['r0','r1','r2','r1'], 9, true);
+	shape.animations.add('leftidle', ['l1'], 6, true);
+	shape.animations.add('upidle', ['u1'], 6, true);
+	shape.animations.add('downidle', ['d1'], 6, true);
+	shape.animations.add('rightidle', ['r1'], 6, true);
 
 	var thought_bg = game.add.graphics(0, 0);
 	var thought = game.add.text(0, 0, "", {
@@ -88,20 +88,20 @@ var Person = function (x, y, key, name) {
 		//}
 		switch(lookDir){
 			case lookState.down:
-			    if(moving) shape.animations.play('down', 9, true);
-			    else shape.animations.play('downidle', 9, true);
+			    if(moving) shape.animations.play('down', 5, true);
+			    else shape.animations.play('downidle', 5, true);
 			    break;
 			case lookState.left:
-			    if(moving) shape.animations.play('left', 9, true);
-			    else shape.animations.play('leftidle', 9, true);
+			    if(moving) shape.animations.play('left', 5, true);
+			    else shape.animations.play('leftidle', 5, true);
 			    break;
 			case lookState.up:
-			    if(moving) shape.animations.play('up', 9, true);
-			    else shape.animations.play('upidle', 9, true);
+			    if(moving) shape.animations.play('up', 5, true);
+			    else shape.animations.play('upidle', 5, true);
 			    break;
 			case lookState.right:
-			    if(moving) shape.animations.play('right', 9, true);
-			    else shape.animations.play('rightidle', 9, true);
+			    if(moving) shape.animations.play('right', 5, true);
+			    else shape.animations.play('rightidle', 5, true);
 			    break;
 		}
 	};
