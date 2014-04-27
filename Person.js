@@ -2,6 +2,8 @@
 var Person = function (x, y, key, name) {
 	var that = {};
 
+	var group = game.add.group(undefined, name + "_grp");
+
 	var shape = game.add.sprite(x,y, key);
 	shape.anchor.x = 0.5;
 	shape.anchor.y = 0.5;
@@ -21,6 +23,11 @@ var Person = function (x, y, key, name) {
 			align: "center"
 		});
 	thought.visible = false;
+
+	// for display object sorting
+	group.add(shape);
+	group.add(thought_bg);
+	group.add(thought);
 
 	var moveDir = new Phaser.Point(0,0);
 	var lookDir = lookState.down;
@@ -101,6 +108,8 @@ var Person = function (x, y, key, name) {
 			    break;
 		}
 	};
+
+	that.group = group;
 
 	that.shape = shape;
 	that.move = move;
