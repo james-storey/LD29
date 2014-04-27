@@ -1,5 +1,5 @@
 
-var Person = function (x, y, key) {
+var Person = function (x, y, key, name) {
 	var that = {};
 
 	var shape = game.add.sprite(x,y, key);
@@ -76,5 +76,6 @@ var Person = function (x, y, key) {
 	that.move = move;
 	that.stop = stop;
 	that.lookDir = lookDir;
+	that.name = name;
 	return that;
 };

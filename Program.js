@@ -29,8 +29,8 @@ var Program = function () {
 		game.add.image(-900, -1100, 'lobby');
 		game.add.image(1200, -1247, 'security');
 
-		characters.push(Person(0, 50, 'fatman'));
-		characters.push(Person(70, 50, 'fatman'));
+		characters.push(Person(0, 50, 'fatman', 'adam'));
+		characters.push(Person(70, 50, 'fatman', 'patrick'));
 		player = Player(characters[0]);
 		MoveLib.PaceHL(characters[1]);
 		game.camera.focusOnXY(0, 0);
