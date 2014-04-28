@@ -36,8 +36,6 @@ var Thought = function(x, y, name, style) {
         text.x = x;
         text.y = y;
 
-        console.log(x, y);
-
         graphic.position.x = x;
         graphic.position.y = y;
 

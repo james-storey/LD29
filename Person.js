@@ -48,6 +48,8 @@ var Person = function (x, y, key, name, startDir) {
 		{
 			lookDir = lookState.down;
 		}
+
+		// FIXME: should we call thought.move as well?
 	};
 
 	var stop = function() {
@@ -99,7 +101,6 @@ var Person = function (x, y, key, name, startDir) {
 		shape.position.y += moveDir.y*speed*dt;
 
 		if (thought.text.visible) {
-			console.log(shape.position.x - shape.width * shape.anchor.x);
 			thought.move(
 				shape.position.x - shape.width * shape.anchor.x,
 				shape.position.y - shape.height * shape.anchor.y - thought.text.height);
