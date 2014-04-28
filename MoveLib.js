@@ -70,14 +70,14 @@ var MoveLib = function () {
 	};
 	var walkUp = function (context, delay, walkTime) {
 		var cTime = delay;
-		game.time.events.add(cTime, context.move, context, 0, 1);
+		game.time.events.add(cTime, context.move, context, 0, -1);
 		cTime += walkTime;
 		game.time.events.add(cTime, context.stop, context);
 		return cTime;
 	};
 	var walkDown = function (context, delay, walkTime) {
 		var cTime = delay;
-		game.time.events.add(cTime, context.move, context, 0, -1);
+		game.time.events.add(cTime, context.move, context, 0, 1);
 		cTime += walkTime;
 		game.time.events.add(cTime, context.stop, context);
 		return cTime;

@@ -69,20 +69,8 @@ var Program = function () {
 
 		game.add.image(-2160, -2160, 'layout', undefined, groups.background);
 
-		//game.add.image(-900, -1100, 'lobby', undefined, groups.background);
-		//game.add.image(1200, -1247, 'security', undefined, groups.background);
-
-		//characters.push(Person(0, -500, 'fatman', 'adam'));
-		//characters.push(Person(70, -500, 'longHair', 'patrick'));
-
 		peopleInit();
 		player = Player(characters[0]);
-
-		player = Player(characters[0]);
-
-		//MoveLib.repeat(characters[0], 1100, 3000, MoveLib.PaceV, 1);
-		//MoveLib.repeat(characters[1], 1000, 3000, MoveLib.PaceH, 1);
-		//game.camera.focusOnXY(0, 0);
 
 		minorCharacters.forEach(function (person) {
 			groups.midground.add(person.group);
@@ -97,6 +85,8 @@ var Program = function () {
 		groups.midground.sort('y', Phaser.Group.SORT_DESCENDING);
 		groups.textground.sort('y', Phaser.Group.SORT_DESCENDING);
 		groups.overlay.sort('y', Phaser.Group.SORT_DESCENDING);
+
+		Opening.start();
 	};
 
 	var update = function () {

@@ -6,19 +6,42 @@ var Opening = function () {
 	var eve;
 	var attendant;
 	var linePerson;
+	var waitForNudge;
+
+	var lineMove = function(actor, time)
+	{
+		var t = 0;
+		t = MoveLib.walkLeft(actor, 100+t, 3000);
+		t = MoveLib.walkDown(actor, 100+t, 20000);
+	}
 
 	var start = function() 
 	{
+		console.log("start Opening")
 		adam = characters[0];
 		eve = characters[1];
 		attendant = minorCharacters[0];
 		linePerson = minorCharacters[1];
 
+		scriptTime = 0;
+
 		// pan camera
 
+		game.camera.follow(null);
+		game.camera.focusOnXY(-1350, 1900);
+
+		scriptTime += 12000;
+		game.add.tween(game.camera)
+			.to({x:adam.shape.position.x - (game.camera.width / 2),
+			 y: adam.shape.position.y - (game.camera.height / 2)}, 
+			 scriptTime, Phaser.Easing.Linear.None, true);
+		game.time.events.add(scriptTime, game.camera.follow, this, 
+								adam.shape, Phaser.Camera.FOLLOW_TOPDOWN_TIGHT);
 		// adam, eve discuss
 
 		// line moves
+		scriptTime += 3000;
+		game.time.events.add(scriptTime, lineMove, this, linePerson, scriptTime);
 
 		// nudge to move on
 
@@ -28,9 +51,14 @@ var Opening = function () {
 
 		// switch to move on
 
-	}
+	};
+
+	//var update = function () {
+	//	if(waitForNudge && player.nudging)
+	//};
 
 	that.start = start;
+	//that.update = update;
 
 	return that; 
 }();
