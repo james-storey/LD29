@@ -6,7 +6,8 @@ var Opening = function () {
 	var eve;
 	var attendant;
 	var linePerson;
-	var waitForNudge;
+	var waitForNudge = false;
+	var waitForSwitch = false;
 
 	var lineMove = function(actor, time)
 	{
@@ -23,7 +24,7 @@ var Opening = function () {
 		attendant = minorCharacters[0];
 		linePerson = minorCharacters[1];
 
-		scriptTime = 0;
+		var scriptTime = 0;
 
 		// pan camera
 
@@ -44,23 +45,39 @@ var Opening = function () {
 		game.time.events.add(scriptTime, lineMove, this, linePerson, scriptTime);
 
 		// nudge to move on
+		scriptTime + 5000;
+		game.time.events.add(scriptTime, (function() { waitForNudge = true}), this);
 
-		// get pass
-
-		// move to hall entry
+		
 
 		// switch to move on
 
 	};
 
-	//var update = function () {
-	//	if(waitForNudge && player.nudging)
-	//};
+	var nudgeToMove = function()
+	{
+		var scriptTime = 0;
+		// get pass
+
+		// move to hall entry
+	};
+
+	var playerListener = function (paramObj) {
+		var nudging = paramObj.nudging;
+		var x = paramObj.x;
+		var y = paramObj.y;
+		var switching = paramObj.switching;
+		if(waitForNudge && nudging)
+		{
+			waitForNudge = false;
+			nudgeToMove();
+		}
+	}
 
 	that.start = start;
 	//that.update = update;
 
-	return that; 
+	return that;
 }();
 
 var Security = function () {

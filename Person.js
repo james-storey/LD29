@@ -34,7 +34,7 @@ var Person = function (x, y, key, name, startDir) {
 
 	var moveDir = new Phaser.Point(0,0);
 	var lookDir = startDir || lookState.down;
-	var speed = 1;
+	var speed = 3;
 	var moving = false;
 
 	var move = function(x, y) {
@@ -88,9 +88,9 @@ var Person = function (x, y, key, name, startDir) {
 		return graphic;
 	}
 
-	that.update = function () {
-		shape.position.x += moveDir.x*speed;
-		shape.position.y += moveDir.y*speed;
+	that.update = function (dt) {
+		shape.position.x += moveDir.x*speed*dt;
+		shape.position.y += moveDir.y*speed*dt;
 
 		if (thought.visible) {
 			thought.x = shape.position.x + shape.width;
@@ -100,7 +100,7 @@ var Person = function (x, y, key, name, startDir) {
 			thought_bg.position.y = thought.y;
 		}
 
-		switch(lookDir){
+		switch(lookDir) {
 			case lookState.down:
 				if(moving) shape.animations.play('down', 5, true);
 				else shape.animations.play('downidle', 5, true);
@@ -127,7 +127,7 @@ var Person = function (x, y, key, name, startDir) {
 	that.move = move;
 	that.stop = stop;
 	that.lookDir = lookDir;
-	that.speed;
+	that.speed = speed;
 
 	that.think = think;
 	that.name = name;

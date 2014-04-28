@@ -140,7 +140,7 @@ var Player = function (startingBody) {
 	that.shape = shape;
 	that.nudge = nudge;
 	that.update = update;
-
+	that.signal = new Phaser.Signal();
 	that.debugMode = debugMode;
 	that.switchBodies = switchBodies;
 	that.currentAttachment = currentAttachment;

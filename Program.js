@@ -5,6 +5,7 @@ var Program = function () {
 	var esc;
 	var isDebugMode = false;
 	var keyPressed = false;
+	var currentTime;
 
 	that.currentGameState = gameStates.start;
 	var preload = function () {
@@ -38,6 +39,7 @@ var Program = function () {
 	};
 
 	var create = function () {
+		currentTime = game.time.now;
 		game.stage.backgroundColor = 0xeaeaea;
 
 		game.world.setBounds(-2000, -2000, 4000, 4000);
@@ -90,6 +92,9 @@ var Program = function () {
 	};
 
 	var update = function () {
+		var pTime = currentTime || 0;
+		currentTime = game.time.now;
+		var dTime = (currentTime - pTime) * 0.016;
 
 		if(debugMode.justPressed(50) && keyPressed === false)
 		{
@@ -106,14 +111,14 @@ var Program = function () {
 			debugInit();
 		}
 
-		player.update();
+		player.update(dTime);
 		groups.textground.bringToTop(player.currentAttachment.thought_group);
 
 		characters.forEach(function (elem) {
-			elem.update();
+			elem.update(dTime);
 		});
 		minorCharacters.forEach(function (elem) {
-			elem.update();
+			elem.update(dTime);
 		});
 	};
 
