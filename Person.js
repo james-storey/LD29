@@ -112,8 +112,8 @@ var Person = function (x, y, key, name, startDir) {
 		shape.position.y += moveDir.y*speed*dt;
 
 		if (thought.visible) {
-			thought.x = shape.position.x + shape.width;
-			thought.y = shape.position.y - shape.height;
+			thought.x = shape.position.x - shape.width * shape.anchor.x;
+			thought.y = shape.position.y - shape.height * shape.anchor.y - thought.height;
 
 			thought_bg.position.x = thought.x;
 			thought_bg.position.y = thought.y;
