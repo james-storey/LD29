@@ -39,6 +39,17 @@ var Opening = function () {
 		game.time.events.add(scriptTime, game.camera.follow, this,
 								adam.shape, Phaser.Camera.FOLLOW_TOPDOWN_TIGHT);
 		// adam, eve discuss
+		adam.thought.load("adam", "to_eve");
+		eve.thought.load("eve", "to_adam");
+
+		scriptTime += 1000;
+		game.time.events.add(scriptTime, eve.think, eve, 3000);
+
+		scriptTime += 4000;
+		game.time.events.add(scriptTime, adam.think, adam, 3000);
+
+		scriptTime += 4000;
+		game.time.events.add(scriptTime, adam.think, adam, 3000);
 
 		// line moves
 		scriptTime += 3000;

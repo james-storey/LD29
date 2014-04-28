@@ -21,12 +21,10 @@
 		]
 	},
 	"adam": {
-		"to": {
-			"eve": [
-				"Oh. I'm sorry",
-				"Well babe, I'm off for four weeks"
-			]
-		},
+		"to_eve": [
+			"Oh. I'm sorry",
+			"Well babe, I'm off for four weeks"
+		],
 		"script": [
 			"I can't believe she let us just stand there and talk...",
 			"I feel strange...",
@@ -39,11 +37,9 @@
 		]
 	},
 	"eve": {
-		"to": {
-			"adam": [
-				"I'll miss you hon"
-			]
-		},
+		"to_adam": [
+			"I'll miss you hon"
+		],
 		"script": [
 			"Did we really just stand there talking?",
 			"I feel so embarrased..."
