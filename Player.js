@@ -28,7 +28,7 @@ var Player = function (startingBody) {
 
 		// trigger a thought callout
 		game.time.events.add(1000, function() {
-			currentAttachment.think();
+			currentAttachment.think(2000);
 		});
 
 		that.currentAttachment = currentAttachment;

@@ -3,7 +3,6 @@ var Person = function (x, y, key, name, startDir) {
 	var that = {};
 
 	var group = game.add.group(undefined, name + "_grp");
-	var thought_group = game.add.group(undefined, name + "_thought_grp");
 
 	var shape = game.add.sprite(x,y, key);
 	shape.anchor.x = 0.5;
@@ -17,20 +16,13 @@ var Person = function (x, y, key, name, startDir) {
 	shape.animations.add('downidle', ['d1'], 6, true);
 	shape.animations.add('rightidle', ['r1'], 6, true);
 
-	var thought_bg = game.add.graphics(x, y);
-	var thought = game.add.text(x, y, "", {
-			font: "12pt uni_05_53",
-			fill: "#000000",
-			align: "center"
-	});
-	thought.visible = false;
-	thought.wordWrap = true;
-	thought.wordWrapWidth = 240;
-
 	// for display object sorting
 	group.add(shape);
-	thought_group.add(thought_bg);
-	thought_group.add(thought);
+
+
+	var thought = Thought(x, y, name);
+	thought.hide();
+	thought.load(name, "script");
 
 	var moveDir = new Phaser.Point(0,0);
 	var lookDir = startDir || lookState.down;
@@ -56,6 +48,8 @@ var Person = function (x, y, key, name, startDir) {
 		{
 			lookDir = lookState.down;
 		}
+
+		// FIXME: should we call thought.move as well?
 	};
 
 	var stop = function() {
@@ -63,29 +57,24 @@ var Person = function (x, y, key, name, startDir) {
 		moveDir = new Phaser.Point(0,0);
 	};
 
-	var think = function() {
-		var thought_json = game.cache.getJSON('thoughts');
-		thought.setText(thought_json[name]["script"][0]);
+	var think = function(duration, index) {
 
-		generate_thought_graphic(thought_bg, thought.width, thought.height, 10);
-		thought.visible = true;
+		var line = ((index === undefined) ?
+			thought.stream.getNext() :
+			thought.stream.getAt(index));
 
-		game.time.events.add(4000, function() {
-			thought.visible = false;
-			thought_bg.clear();
+		thought.text.setText(line);
+		if (!line || line.length === 0) {
+			thought.hide();
+			return;
+		}
+
+		thought.show();
+		thought.redraw();
+
+		game.time.events.add(duration, function() {
+			thought.hide();
 		});
-	}
-
-	// FIXME: encapsulate in a thought class
-	var generate_thought_graphic = function(graphic, w, h, pad) {
-		pad = pad || 10;
-
-		graphic.clear();
-		graphic.beginFill(0xFFFFFF);
-		graphic.drawRect(-pad, -pad, w + pad * 2, h + pad * 2);
-		graphic.endFill();
-
-		return graphic;
 	};
 
 	var destroySelf = function() {
@@ -111,12 +100,10 @@ var Person = function (x, y, key, name, startDir) {
 		shape.position.x += moveDir.x*speed*dt;
 		shape.position.y += moveDir.y*speed*dt;
 
-		if (thought.visible) {
-			thought.x = shape.position.x - shape.width * shape.anchor.x;
-			thought.y = shape.position.y - shape.height * shape.anchor.y - thought.height;
-
-			thought_bg.position.x = thought.x;
-			thought_bg.position.y = thought.y;
+		if (thought.text.visible) {
+			thought.move(
+				shape.position.x - shape.width * shape.anchor.x,
+				shape.position.y - shape.height * shape.anchor.y - thought.text.height);
 		}
 
 		switch(lookDir) {
@@ -140,7 +127,7 @@ var Person = function (x, y, key, name, startDir) {
 	};
 
 	that.group = group;
-	that.thought_group = thought_group;
+	that.thought_group = thought.group;
 
 	that.shape = shape;
 	that.move = move;
@@ -151,7 +138,8 @@ var Person = function (x, y, key, name, startDir) {
 	that.think = think;
 	that.name = name;
 	that.thought = thought;
-	that.thought_bg = thought_bg;  // FIXME: encapsulate into a thought class
+
+	that.think = think;
 	return that;
 };
 
