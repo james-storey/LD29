@@ -15,7 +15,8 @@ var Player = function (startingBody) {
 	game.camera.follow(currentAttachment.shape, Phaser.Camera.FOLLOW_TOPDOWN_TIGHT);
 
 	currentAttachment.group.add(shape);
-
+	//var lis = new Signal();
+	//shape.Signal.add(listener,this);
 	var switchBodies = function (target) {
 		// play anim
 		currentAttachment = target;
