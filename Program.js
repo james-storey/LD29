@@ -11,7 +11,7 @@ var Program = function () {
 	var preload = function () {
 		game.load.atlasJSONHash('fatman', 'character_sprites/man04/man04sheet.png',
 								'character_sprites/man04/man04sheet.json');
-		game.load.atlasJSONHash('longHair', 'character_sprites/man06/man06.png',
+		game.load.atlasJSONHash('backpackman', 'character_sprites/man06/man06.png',
 								'character_sprites/man06/man06.json');
 		game.load.atlasJSONHash('blueman', 'character_sprites/man05/man05.png',
 								'character_sprites/man05/man05.json');
@@ -111,7 +111,7 @@ var Program = function () {
 		//game.add.image(1200, -1247, 'security', undefined, groups.background);
 
 		//characters.push(Person(0, -500, 'fatman', 'adam'));
-		//characters.push(Person(70, -500, 'longHair', 'patrick'));
+		//characters.push(Person(70, -500, 'backpackman', 'patrick'));
 		LobbyInit();
 		player = Player(characters[0]);
 		

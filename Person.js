@@ -184,7 +184,7 @@ var LobbyInit = function () {
 	MoveLib.repeat(pace1, 1000, 6000, MoveLib.PaceH);
 	minorCharacters.push(pace1);
 
-	minorCharacters.push(Person(-880, 1755, 'longHair', 'tickerWatcher', lookState.up));
+	minorCharacters.push(Person(-880, 1755, 'backpackman', 'tickerWatcher', lookState.up));
 	player = Player(characters[0]);
 	Program.sortGroups();
 	Opening.start();
@@ -209,7 +209,7 @@ var SecurityInit = function () {
 	minorCharacters.push(hall1);
 	MoveLib.repeat(hall1, 1000, 30000, MoveLib.PaceH, 1);
 
-	var hall5 = Person(10, 1690, 'longHair', 'hall5');
+	var hall5 = Person(10, 1690, 'backpackman', 'hall5');
 	minorCharacters.push(hall5);
 	MoveLib.repeat(hall5, 1000, 21000, MoveLib.PaceH, 1);
 

@@ -46,7 +46,7 @@ var Opening = function () {
 
 		// nudge to move on
 		scriptTime + 5000;
-		game.time.events.add(scriptTime, (function() { waitForNudge = true}), this);
+		game.time.events.add(scriptTime, (function() { waitForNudge = true }), this);
 
 		
 
@@ -108,7 +108,7 @@ var Security = function () {
 	return that; 
 }();
 
-var Security = function () {
+var Terminal = function () {
 	var that = {};
 
 	var startPerson;
