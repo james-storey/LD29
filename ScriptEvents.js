@@ -16,7 +16,7 @@ var Opening = function () {
 		t = MoveLib.walkDown(actor, 100+t, 20000);
 	}
 
-	var start = function() 
+	var start = function()
 	{
 		console.log("start Opening")
 		adam = characters[0];
@@ -34,9 +34,9 @@ var Opening = function () {
 		scriptTime += 12000;
 		game.add.tween(game.camera)
 			.to({x:adam.shape.position.x - (game.camera.width / 2),
-			 y: adam.shape.position.y - (game.camera.height / 2)}, 
+			 y: adam.shape.position.y - (game.camera.height / 2)},
 			 scriptTime, Phaser.Easing.Linear.None, true);
-		game.time.events.add(scriptTime, game.camera.follow, this, 
+		game.time.events.add(scriptTime, game.camera.follow, this,
 								adam.shape, Phaser.Camera.FOLLOW_TOPDOWN_TIGHT);
 		// adam, eve discuss
 
@@ -48,7 +48,7 @@ var Opening = function () {
 		scriptTime + 5000;
 		game.time.events.add(scriptTime, (function() { waitForNudge = true}), this);
 
-		
+
 
 		// switch to move on
 
@@ -87,7 +87,7 @@ var Security = function () {
 	var startPerson;
 	var repeatable;
 
-	var start = function() 
+	var start = function()
 	{
 		// set persons
 
@@ -105,7 +105,7 @@ var Security = function () {
 
 	that.start = start;
 
-	return that; 
+	return that;
 }();
 
 var Security = function () {
@@ -114,7 +114,7 @@ var Security = function () {
 	var startPerson;
 	var hatMan;
 
-	var start = function() 
+	var start = function()
 	{
 		// set persons
 
@@ -133,5 +133,5 @@ var Security = function () {
 
 	that.start = start;
 
-	return that; 
+	return that;
 }();
