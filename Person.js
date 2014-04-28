@@ -32,6 +32,9 @@ var Person = function (x, y, key, name, startDir) {
 	thought_group.add(thought_bg);
 	thought_group.add(thought);
 
+	// for loading in thoughts
+	var thought_stream = ThoughtStream(name, "script");
+
 	var moveDir = new Phaser.Point(0,0);
 	var lookDir = startDir || lookState.down;
 	var speed = 1;
@@ -63,14 +66,20 @@ var Person = function (x, y, key, name, startDir) {
 		moveDir = new Phaser.Point(0,0);
 	};
 
-	var think = function() {
-		var thought_json = game.cache.getJSON('thoughts');
-		thought.setText(thought_json[name]["script"][0]);
+	var think = function(duration, index) {
+
+		var line = function() {
+			return ((index === undefined) ?
+				thought_stream.getNext() :
+				thought_stream.getAt(index));
+		}();
+
+		thought.setText(line);
 
 		generate_thought_graphic(thought_bg, thought.width, thought.height, 10);
 		thought.visible = true;
 
-		game.time.events.add(4000, function() {
+		game.time.events.add(duration, function() {
 			thought.visible = false;
 			thought_bg.clear();
 		});
@@ -133,6 +142,7 @@ var Person = function (x, y, key, name, startDir) {
 	that.name = name;
 	that.thought = thought;
 	that.thought_bg = thought_bg;  // FIXME: encapsulate into a thought class
+	that.thought_stream = thought_stream;
 	return that;
 };
 
