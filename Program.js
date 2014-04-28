@@ -70,25 +70,9 @@ var Program = function () {
 		groups.overlay.z = 3;
 
 		game.add.image(-2160, -2160, 'layout', undefined, groups.background);
-
-		peopleInit();
+		
+		LobbyInit();
 		player = Player(characters[0]);
-
-		minorCharacters.forEach(function (person) {
-			groups.midground.add(person.group);
-			groups.textground.add(person.thought_group);
-		});
-		characters.forEach(function (person) {
-			groups.midground.add(person.group);
-			groups.textground.add(person.thought_group);
-		});
-		groups.midground.add(player.shape);
-
-		groups.midground.sort('y', Phaser.Group.SORT_DESCENDING);
-		groups.textground.sort('y', Phaser.Group.SORT_DESCENDING);
-		groups.overlay.sort('y', Phaser.Group.SORT_DESCENDING);
-
-		Opening.start();
 	};
 
 	var update = function () {
@@ -136,6 +120,25 @@ var Program = function () {
 		}
 
 	};
+
+	var sortGroups = function() {
+		var groups = that.groups;
+		minorCharacters.forEach(function (person) {
+			groups.midground.add(person.group);
+			groups.textground.add(person.thought_group);
+		});
+		characters.forEach(function (person) {
+			groups.midground.add(person.group);
+			groups.textground.add(person.thought_group);
+		});
+		groups.midground.add(player.shape);
+
+		groups.midground.sort('y', Phaser.Group.SORT_DESCENDING);
+		groups.textground.sort('y', Phaser.Group.SORT_DESCENDING);
+		groups.overlay.sort('y', Phaser.Group.SORT_DESCENDING);
+	};
+
+	that.sortGroups = sortGroups;
 
 	game = new Phaser.Game(1000, 640, Phaser.AUTO, "phaser",
 			{preload: preload, create: create, update: update, render: render});
