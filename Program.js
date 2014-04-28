@@ -32,7 +32,7 @@ var Program = function () {
 		game.load.image("redBox", "resources/redBox.png");
 		game.load.image("lobby", "character_sprites/lobbypixel.png");
 		game.load.image("security", "character_sprites/security.png");
-		game.load.image("layout", "character_sprites/layout.png");
+		game.load.image("layout", "character_sprites/layoutNoFront.png");
 
 		game.load.json("thoughts", "resources/thoughts.json");
 	};
