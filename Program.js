@@ -1,10 +1,11 @@
 
 var Program = function () {
 	var that = {};
-	var debugMode;
+	var debugMode, lobbyDebug, secDebug, terminalDebug, bathDebug;
 	var esc;
-	var isDebugMode = false;
+	that.isDebugMode = false;
 	var keyPressed = false;
+	var currentTime;
 
 	that.currentGameState = gameStates.start;
 	var preload = function () {
@@ -48,6 +49,7 @@ var Program = function () {
 	};
 
 	var create = function () {
+		currentTime = game.time.now;
 		game.stage.backgroundColor = 0xeaeaea;
 
 		game.world.setBounds(-2000, -2000, 4000, 4000);
@@ -61,6 +63,11 @@ var Program = function () {
 		spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 		debugMode = game.input.keyboard.addKey(Phaser.Keyboard.TILDE);
 		esc = game.input.keyboard.addKey(Phaser.Keyboard.ESC);
+
+		lobbyDebug = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
+		secDebug = game.input.keyboard.addKey(Phaser.Keyboard.TWO);
+		terminalDebug = game.input.keyboard.addKey(Phaser.Keyboard.THREE);
+		bathDebug = game.input.keyboard.addKey(Phaser.Keyboard.FOUR);
 
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -105,16 +112,81 @@ var Program = function () {
 
 		//characters.push(Person(0, -500, 'fatman', 'adam'));
 		//characters.push(Person(70, -500, 'longHair', 'patrick'));
-
-		peopleInit();
+		LobbyInit();
 		player = Player(characters[0]);
+		
 
-		player = Player(characters[0]);
+	};
 
-		//MoveLib.repeat(characters[0], 1100, 3000, MoveLib.PaceV, 1);
-		//MoveLib.repeat(characters[1], 1000, 3000, MoveLib.PaceH, 1);
-		//game.camera.focusOnXY(0, 0);
+	var update = function () {
+		var pTime = currentTime || 0;
+		currentTime = game.time.now;
+		var dTime = (currentTime - pTime) * 0.016;
 
+		if(debugMode.justPressed(50) && that.isDebugMode === false)
+		{
+			that.isDebugMode = true;
+			console.log("debugMode: " + that.isDebugMode)
+			debugInit();
+		}
+		else if(esc.justPressed(50) && that.isDebugMode === true)
+		{
+			keyPressed = false;
+			that.isDebugMode = false;
+			console.log("debugMode: " + that.isDebugMode)
+			debugInit();
+		}
+
+		if(that.isDebugMode)
+		{
+			if(lobbyDebug.justPressed(50) && keyPressed === false)
+			{
+				keyPressed === true;
+				LobbyInit();
+			}
+			else if(secDebug.justPressed(50) && keyPressed === false)
+			{
+				keyPressed === true;
+				SecurityInit();
+			}
+			else if(terminalDebug.justPressed(50) && keyPressed === false)
+			{
+				keyPressed === true;
+			}
+			else if(bathDebug.justPressed(50) && keyPressed === false)
+			{
+				keyPressed === true;
+			}
+		}
+
+		player.update(dTime);
+		groups.textground.bringToTop(player.currentAttachment.thought_group);
+
+		characters.forEach(function (elem) {
+			elem.update(dTime);
+		});
+		minorCharacters.forEach(function (elem) {
+			elem.update(dTime);
+		});
+	};
+
+	var render = function () {
+
+	};
+
+	var debugInit = function() {
+		player.debugMode(that.isDebugMode);
+
+		if(that.isDebugMode === false)
+		{
+			//close debug stuff
+			return;
+		}
+
+	};
+
+	var sortGroups = function() {
+		var groups = that.groups;
 		minorCharacters.forEach(function (person) {
 			groups.midground.add(person.group);
 			groups.textground.add(person.thought_group);
@@ -130,48 +202,7 @@ var Program = function () {
 		groups.overlay.sort('y', Phaser.Group.SORT_DESCENDING);
 	};
 
-	var update = function () {
-
-		if(debugMode.justPressed(50) && keyPressed === false)
-		{
-			keyPressed = true;
-			isDebugMode = true;
-			console.log("debugMode: " + isDebugMode)
-			debugInit();
-		}
-		else if(esc.justPressed(50) && keyPressed === true)
-		{
-			keyPressed = false;
-			isDebugMode = false;
-			console.log("debugMode: " + isDebugMode)
-			debugInit();
-		}
-
-		player.update();
-		groups.textground.bringToTop(player.currentAttachment.thought_group);
-
-		characters.forEach(function (elem) {
-			elem.update();
-		});
-		minorCharacters.forEach(function (elem) {
-			elem.update();
-		});
-	};
-
-	var render = function () {
-
-	};
-
-	var debugInit = function() {
-		player.debugMode(isDebugMode);
-
-		if(isDebugMode === false)
-		{
-			//close debug stuff
-			return;
-		}
-
-	};
+	that.sortGroups = sortGroups;
 
 	game = new Phaser.Game(1000, 640, Phaser.AUTO, "phaser",
 			{preload: preload, create: create, update: update, render: render});
