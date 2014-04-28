@@ -29,6 +29,8 @@ var Player = function (startingBody) {
 		game.time.events.add(1000, function() {
 			currentAttachment.think();
 		});
+
+		that.currentAttachment = currentAttachment;
 	};
 
 	var nudge = function(x,y) {
