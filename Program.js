@@ -38,7 +38,10 @@ var Program = function () {
 		game.load.image("secWallB", "character_sprites/securityWallBack.png");
 		game.load.image("secSign", "character_sprites/security_sign.png");
 		game.load.image("pylons1", "character_sprites/pylonSet01.png");
-		
+		game.load.image("xrayBox", "character_sprites/xrayBox.png");
+		game.load.image("xrayBelt", "character_sprites/xrayBelt.png");
+		game.load.image("metalDetectorTop", "character_sprites/metalDetectorTop.png");
+		game.load.image("metalDetectorBottom", "character_sprites/metalDetectorBottom.png");
 
 
 		game.load.json("thoughts", "resources/thoughts.json");
@@ -82,6 +85,20 @@ var Program = function () {
 		game.add.image(-60, 1300, 'secWallF', undefined, groups.foreground);
 		game.add.image(-61, 1445, 'secWallB', undefined, groups.background);
 		game.add.image(-91, 1460, 'secSign', undefined, groups.background);
+		game.add.image(480, 1120, 'xrayBox', undefined, groups.foreground);
+		game.add.image(507, 1055, 'xrayBelt', undefined, groups.background);
+		game.add.image(637, 1100, 'metalDetectorTop', undefined, groups.foreground);
+		game.add.image(637, 1205, 'metalDetectorBottom', undefined, groups.background);
+
+		game.add.image(480+700, 1120, 'xrayBox', undefined, groups.foreground);
+		game.add.image(507+700, 1055, 'xrayBelt', undefined, groups.background);
+		game.add.image(637+700, 1100, 'metalDetectorTop', undefined, groups.foreground);
+		game.add.image(637+700, 1205, 'metalDetectorBottom', undefined, groups.background);
+
+		game.add.image(480+350, 1120, 'xrayBox', undefined, groups.foreground);
+		game.add.image(507+350, 1055, 'xrayBelt', undefined, groups.background);
+		game.add.image(637+350, 1100, 'metalDetectorTop', undefined, groups.foreground);
+		game.add.image(637+350, 1205, 'metalDetectorBottom', undefined, groups.background);
 
 		//game.add.image(-900, -1100, 'lobby', undefined, groups.background);
 		//game.add.image(1200, -1247, 'security', undefined, groups.background);
