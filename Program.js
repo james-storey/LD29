@@ -1,9 +1,9 @@
 
 var Program = function () {
 	var that = {};
-	var debugMode;
+	var debugMode, lobbyDebug, secDebug, terminalDebug, bathDebug;
 	var esc;
-	var isDebugMode = false;
+	that.isDebugMode = false;
 	var keyPressed = false;
 	var currentTime;
 
@@ -54,6 +54,11 @@ var Program = function () {
 		debugMode = game.input.keyboard.addKey(Phaser.Keyboard.TILDE);
 		esc = game.input.keyboard.addKey(Phaser.Keyboard.ESC);
 
+		lobbyDebug = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
+		secDebug = game.input.keyboard.addKey(Phaser.Keyboard.TWO);
+		terminalDebug = game.input.keyboard.addKey(Phaser.Keyboard.THREE);
+		bathDebug = game.input.keyboard.addKey(Phaser.Keyboard.FOUR);
+
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 
 
@@ -80,19 +85,40 @@ var Program = function () {
 		currentTime = game.time.now;
 		var dTime = (currentTime - pTime) * 0.016;
 
-		if(debugMode.justPressed(50) && keyPressed === false)
+		if(debugMode.justPressed(50) && that.isDebugMode === false)
 		{
-			keyPressed = true;
-			isDebugMode = true;
-			console.log("debugMode: " + isDebugMode)
+			that.isDebugMode = true;
+			console.log("debugMode: " + that.isDebugMode)
 			debugInit();
 		}
-		else if(esc.justPressed(50) && keyPressed === true)
+		else if(esc.justPressed(50) && that.isDebugMode === true)
 		{
 			keyPressed = false;
-			isDebugMode = false;
-			console.log("debugMode: " + isDebugMode)
+			that.isDebugMode = false;
+			console.log("debugMode: " + that.isDebugMode)
 			debugInit();
+		}
+
+		if(that.isDebugMode)
+		{
+			if(lobbyDebug.justPressed(50) && keyPressed === false)
+			{
+				keyPressed === true;
+				LobbyInit();
+			}
+			else if(secDebug.justPressed(50) && keyPressed === false)
+			{
+				keyPressed === true;
+				SecurityInit();
+			}
+			else if(terminalDebug.justPressed(50) && keyPressed === false)
+			{
+				keyPressed === true;
+			}
+			else if(bathDebug.justPressed(50) && keyPressed === false)
+			{
+				keyPressed === true;
+			}
 		}
 
 		player.update(dTime);
@@ -111,9 +137,9 @@ var Program = function () {
 	};
 
 	var debugInit = function() {
-		player.debugMode(isDebugMode);
+		player.debugMode(that.isDebugMode);
 
-		if(isDebugMode === false)
+		if(that.isDebugMode === false)
 		{
 			//close debug stuff
 			return;

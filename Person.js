@@ -159,8 +159,8 @@ var Person = function (x, y, key, name, startDir) {
 var LobbyInit = function () {
 	minorCharacters.length = 0;
 	characters.length = 0;
-	Program.groups.midground.removeAll(true);
-	Program.groups.textground.removeAll(true);
+	Program.groups.midground.removeAll();
+	Program.groups.textground.removeAll();
 
 	// lobby people
 	minorCharacters.push(Person(-1400, 1045, 'redwoman', 'Attendent2'));
@@ -193,8 +193,8 @@ var LobbyInit = function () {
 var SecurityInit = function () {
 	minorCharacters.length = 0;
 	characters.length = 0;
-	Program.groups.midground.removeAll(true);
-	Program.groups.textground.removeAll(true);
+	Program.groups.midground.removeAll();
+	Program.groups.textground.removeAll();
 
 	// hallway walkers
 	var hall3 = Person(-580, 1455, 'blueman', 'hall3');
@@ -217,6 +217,10 @@ var SecurityInit = function () {
 	minorCharacters.push(hall2);
 	MoveLib.repeat(hall2, 2000, 19000, MoveLib.PaceH, -1);
 
+	if(Program.isDebugMode)
+	{
+		player = Player(hall5);
+	}
 	Program.sortGroups();
 	Security.start();
 };
