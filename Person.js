@@ -1,8 +1,9 @@
 
-var Person = function (x, y, key, name) {
+var Person = function (x, y, key, name, startDir) {
 	var that = {};
 
 	var group = game.add.group(undefined, name + "_grp");
+	var thought_group = game.add.group(undefined, name + "_thought_grp");
 
 	var shape = game.add.sprite(x,y, key);
 	shape.anchor.x = 0.5;
@@ -16,8 +17,8 @@ var Person = function (x, y, key, name) {
 	shape.animations.add('downidle', ['d1'], 6, true);
 	shape.animations.add('rightidle', ['r1'], 6, true);
 
-	var thought_bg = game.add.graphics(0, 0);
-	var thought = game.add.text(0, 0, "", {
+	var thought_bg = game.add.graphics(x, y);
+	var thought = game.add.text(x, y, "", {
 			font: "12pt uni_05_53",
 			fill: "#000000",
 			align: "center"
@@ -28,11 +29,11 @@ var Person = function (x, y, key, name) {
 
 	// for display object sorting
 	group.add(shape);
-	group.add(thought_bg);
-	group.add(thought);
+	thought_group.add(thought_bg);
+	thought_group.add(thought);
 
 	var moveDir = new Phaser.Point(0,0);
-	var lookDir = lookState.down;
+	var lookDir = startDir || lookState.down;
 	var speed = 1;
 	var moving = false;
 
@@ -120,6 +121,7 @@ var Person = function (x, y, key, name) {
 	};
 
 	that.group = group;
+	that.thought_group = thought_group;
 
 	that.shape = shape;
 	that.move = move;
@@ -132,4 +134,55 @@ var Person = function (x, y, key, name) {
 	that.thought = thought;
 	that.thought_bg = thought_bg;  // FIXME: encapsulate into a thought class
 	return that;
+};
+
+
+var peopleInit = function () {
+
+	// lobby people
+	minorCharacters.push(Person(-1150, 1038, 'bluewoman', 'Attendent1'));
+	minorCharacters.push(Person(-1400, 1045, 'redwoman', 'Attendent2'));
+	minorCharacters.push(Person(-1660, 1035, 'blueman', 'Attendent3'));
+	minorCharacters.push(Person(-1910, 1045, 'bluewoman', 'Attendent4'));
+
+	minorCharacters.push(Person(-1150, 1151, 'blueman', 'Queue11', lookState.up));
+	minorCharacters.push(Person(-1150, 1231, 'redwoman', 'Queue12', lookState.up));
+	minorCharacters.push(Person(-1160, 1340, 'baldman', 'Queue13', lookState.up));
+
+	minorCharacters.push(Person(-1410, 1156, 'backpack', 'Queue21', lookState.up));
+
+	characters.push(Person(-1460, 1270, 'suitman', 'adam', lookState.right));
+	characters.push(Person(-1410, 1270, 'suitwoman', 'eve', lookState.left));
+
+	var wait1 = Person(-1690, 1425, 'baldman', 'wait1', lookState.right);
+	MoveLib.repeat(wait1, 1000, 1000, MoveLib.walkCircleCCW);
+	minorCharacters.push(wait1);
+
+	var pace1 = Person(-1500, 1615, 'backpack', 'pace1');
+	MoveLib.repeat(pace1, 1000, 6000, MoveLib.PaceH);
+	minorCharacters.push(pace1);
+
+	minorCharacters.push(Person(-880, 1755, 'longHair', 'tickerWatcher', lookState.up));
+
+	// hallway walkers
+
+	var hall3 = Person(-580, 1455, 'blueman', 'hall3');
+	minorCharacters.push(hall3);
+	MoveLib.repeat(hall3, 3000, 24000, MoveLib.PaceH, 1);
+
+	var hall4 = Person(500, 1600, 'backpack', 'hall4');
+	minorCharacters.push(hall4);
+	MoveLib.repeat(hall4, 2000, 15000, MoveLib.PaceH, -1);
+
+	var hall1 = Person(-770, 1629, 'suitman', 'hall1');
+	minorCharacters.push(hall1);
+	MoveLib.repeat(hall1, 1000, 30000, MoveLib.PaceH, 1);
+
+	var hall5 = Person(10, 1690, 'longHair', 'hall5');
+	minorCharacters.push(hall5);
+	MoveLib.repeat(hall5, 1000, 21000, MoveLib.PaceH, 1);
+
+	var hall2 = Person(1440, 1719, 'redwoman', 'hall2');
+	minorCharacters.push(hall2);
+	MoveLib.repeat(hall2, 2000, 19000, MoveLib.PaceH, -1);
 };

@@ -3,53 +3,53 @@
 var MoveLib = function () {
 	var that = {};
 
-	var repeat = function (context, pauseTime, walkTime, f)
+	var repeat = function (context, pauseTime, walkTime, f, dir)
 	{
-		var cTime = f(context, walkTime, pauseTime);
-		console.log(cTime);
-		game.time.events.add(cTime, repeat, this, context, pauseTime, walkTime, f);
+		var cTime = f(context, pauseTime, walkTime, dir);
+		game.time.events.add(cTime, repeat, this, context, pauseTime, walkTime, f, dir);
 	}
 
-	var PaceH = function (context, pauseTime, walkTime) {
+	var PaceH = function (context, pauseTime, walkTime, dir) {
 		var cTime = pauseTime;
-		game.time.events.add(cTime, context.move, context, 1, 0);
+		var d = dir || 1;
+		game.time.events.add(cTime, context.move, context, 1*d, 0);
 		cTime += walkTime;
 		game.time.events.add(cTime, context.stop, context);
 		cTime += pauseTime;
-		game.time.events.add(cTime, context.move, context, -1, 0);
+		game.time.events.add(cTime, context.move, context, -1*d, 0);
 		cTime += walkTime;
 		game.time.events.add(cTime, context.stop, context);
 		return cTime;
 	};
 
-	var PaceV = function (context,pauseTime, walkTime) {
+	var PaceV = function (context,pauseTime, walkTime, dir) {
 		var cTime = pauseTime;
-		game.time.events.add(cTime, context.move, context, 0, 1);
+		var d = dir || 1;
+		game.time.events.add(cTime, context.move, context, 0, 1*d);
 		cTime += walkTime;
 		game.time.events.add(cTime, context.stop, context);
 		cTime += pauseTime;
-		game.time.events.add(cTime, context.move, context, 0, -1);
+		game.time.events.add(cTime, context.move, context, 0, -1*d);
 		cTime += walkTime;
 		game.time.events.add(cTime, context.stop, context);
 		return cTime;
-
 	};
 
 	var walkCircleCCW = function (context, pauseTime, walkTime)
 	{
 		var cTime = walkLeft(context, pauseTime, walkTime);
-		cTime += walkDown(context, pauseTime, walkTime);
-		cTime += walkRight(context, pauseTime, walkTime);
-		cTime += walkUp(context, pauseTime, walkTime);
+		cTime = walkDown(context, cTime + pauseTime, walkTime);
+		cTime = walkRight(context, cTime + pauseTime, walkTime);
+		cTime = walkUp(context, cTime + pauseTime, walkTime);
 		return cTime;
 	};
 
 	var walkCircleCW = function (context, pauseTime, walkTime)
 	{
 		var cTime = walkRight(context, pauseTime, walkTime);
-		cTime += walkUp(context, pauseTime, walkTime);
-		cTime += walkLeft(context, pauseTime, walkTime);
-		cTime += walkDown(context, pauseTime, walkTime);
+		cTime = walkUp(context, pauseTime, walkTime);
+		cTime = walkLeft(context, pauseTime, walkTime);
+		cTime = walkDown(context, pauseTime, walkTime);
 		return cTime;
 	};
 
