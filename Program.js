@@ -33,6 +33,13 @@ var Program = function () {
 		game.load.image("lobby", "character_sprites/lobbypixel.png");
 		game.load.image("security", "character_sprites/security.png");
 		game.load.image("layout", "character_sprites/layoutNoFront.png");
+		game.load.image("gates_sign", "character_sprites/allgatesR.png");
+		game.load.image("secWallF", "character_sprites/securityWallFront.png");
+		game.load.image("secWallB", "character_sprites/securityWallBack.png");
+		game.load.image("secSign", "character_sprites/security_sign.png");
+		game.load.image("pylons1", "character_sprites/pylonSet01.png");
+		
+
 
 		game.load.json("thoughts", "resources/thoughts.json");
 	};
@@ -62,12 +69,19 @@ var Program = function () {
 
 		groups.midground = game.add.group(undefined, "midground_grp");
 		groups.midground.z = 1;
+		groups.foreground = game.add.group(undefined, "foreground_grp");
+		groups.foreground.z = 2;
 		groups.textground = game.add.group(undefined, "textground_grp");
-		groups.textground.z = 2;
+		groups.textground.z = 3;
 		groups.overlay = game.add.group(undefined, "overlay_grp");
-		groups.overlay.z = 3;
+		groups.overlay.z = 4;
 
 		game.add.image(-2160, -2160, 'layout', undefined, groups.background);
+		game.add.image(-2160, -2160, 'pylons1', undefined, groups.background);
+		game.add.image(-800, 1280, 'gates_sign', undefined, groups.foreground);
+		game.add.image(-60, 1300, 'secWallF', undefined, groups.foreground);
+		game.add.image(-61, 1445, 'secWallB', undefined, groups.background);
+		game.add.image(-91, 1460, 'secSign', undefined, groups.background);
 
 		//game.add.image(-900, -1100, 'lobby', undefined, groups.background);
 		//game.add.image(1200, -1247, 'security', undefined, groups.background);
