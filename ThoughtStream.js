@@ -17,7 +17,6 @@ function ThoughtStream(name, storyline, start_index) {
     var stream;
     if (json.hasOwnProperty(name) && json[name].hasOwnProperty(storyline)) {
         stream = json[name][storyline];
-        console.log(stream[0]);
     }
     else {
         stream = null;

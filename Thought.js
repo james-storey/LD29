@@ -33,9 +33,6 @@ var Thought = function(x, y, name, style) {
     }
 
     var move = function(x, y) {
-
-        console.log(text.x, text.y);
-
         text.x = x;
         text.y = y;
 

@@ -26,7 +26,7 @@ var Person = function (x, y, key, name, startDir) {
 
 	var moveDir = new Phaser.Point(0,0);
 	var lookDir = startDir || lookState.down;
-	var speed = 1;
+	var speed = 3;
 	var moving = false;
 
 	var move = function(x, y) {
@@ -73,11 +73,30 @@ var Person = function (x, y, key, name, startDir) {
 		game.time.events.add(duration, function() {
 			thought.hide();
 		});
-	}
+	};
 
-	that.update = function () {
-		shape.position.x += moveDir.x*speed;
-		shape.position.y += moveDir.y*speed;
+	var destroySelf = function() {
+		console.log("destroy self");
+		groups.midGround.remove(group, true);
+		groups.textGround.remove(thought_group, true);
+
+		minorCharacters.forEach(function(e) {
+			if(e === that)
+			{
+				minorCharacters.remove(minorCharacters.indexOf(e));
+			}
+		});
+		characters.forEach(function(e) {
+			if(e === that)
+			{
+				characters.remove(characters.indexOf(e));
+			}
+		});
+	};
+
+	that.update = function (dt) {
+		shape.position.x += moveDir.x*speed*dt;
+		shape.position.y += moveDir.y*speed*dt;
 
 		if (thought.text.visible) {
 			console.log(shape.position.x - shape.width * shape.anchor.x);
@@ -86,7 +105,7 @@ var Person = function (x, y, key, name, startDir) {
 				shape.position.y - shape.height * shape.anchor.y - thought.text.height);
 		}
 
-		switch(lookDir){
+		switch(lookDir) {
 			case lookState.down:
 				if(moving) shape.animations.play('down', 5, true);
 				else shape.animations.play('downidle', 5, true);
@@ -114,6 +133,8 @@ var Person = function (x, y, key, name, startDir) {
 	that.stop = stop;
 	that.lookDir = lookDir;
 	that.speed = speed;
+
+	that.think = think;
 	that.name = name;
 	that.thought = thought;
 
@@ -122,19 +143,22 @@ var Person = function (x, y, key, name, startDir) {
 };
 
 
-var peopleInit = function () {
+var LobbyInit = function () {
+	minorCharacters.length = 0;
+	characters.length = 0;
+	Program.groups.midground.removeAll();
+	Program.groups.textground.removeAll();
 
 	// lobby people
-	minorCharacters.push(Person(-1150, 1038, 'bluewoman', 'Attendent1'));
 	minorCharacters.push(Person(-1400, 1045, 'redwoman', 'Attendent2'));
+	minorCharacters.push(Person(-1410, 1156, 'backpack', 'Queue21', lookState.up));
+	minorCharacters.push(Person(-1150, 1038, 'bluewoman', 'Attendent1'));
 	minorCharacters.push(Person(-1660, 1035, 'blueman', 'Attendent3'));
 	minorCharacters.push(Person(-1910, 1045, 'bluewoman', 'Attendent4'));
 
 	minorCharacters.push(Person(-1150, 1151, 'blueman', 'Queue11', lookState.up));
 	minorCharacters.push(Person(-1150, 1231, 'redwoman', 'Queue12', lookState.up));
 	minorCharacters.push(Person(-1160, 1340, 'baldman', 'Queue13', lookState.up));
-
-	minorCharacters.push(Person(-1410, 1156, 'backpack', 'Queue21', lookState.up));
 
 	characters.push(Person(-1460, 1270, 'suitman', 'adam', lookState.right));
 	characters.push(Person(-1410, 1270, 'suitwoman', 'eve', lookState.left));
@@ -148,9 +172,18 @@ var peopleInit = function () {
 	minorCharacters.push(pace1);
 
 	minorCharacters.push(Person(-880, 1755, 'longHair', 'tickerWatcher', lookState.up));
+	player = Player(characters[0]);
+	Program.sortGroups();
+	Opening.start();
+};
+
+var SecurityInit = function () {
+	minorCharacters.length = 0;
+	characters.length = 0;
+	Program.groups.midground.removeAll();
+	Program.groups.textground.removeAll();
 
 	// hallway walkers
-
 	var hall3 = Person(-580, 1455, 'blueman', 'hall3');
 	minorCharacters.push(hall3);
 	MoveLib.repeat(hall3, 3000, 24000, MoveLib.PaceH, 1);
@@ -170,4 +203,11 @@ var peopleInit = function () {
 	var hall2 = Person(1440, 1719, 'redwoman', 'hall2');
 	minorCharacters.push(hall2);
 	MoveLib.repeat(hall2, 2000, 19000, MoveLib.PaceH, -1);
+
+	if(Program.isDebugMode)
+	{
+		player = Player(hall5);
+	}
+	Program.sortGroups();
+	Security.start();
 };
