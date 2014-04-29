@@ -32,24 +32,27 @@ var Person = function (x, y, key, name, startDir) {
 	var move = function(x, y) {
 		moving = true;
 		moveDir = new Phaser.Point(x,y).normalize();
-		if(moveDir.x > 0 && moveDir.x > y)
+		if(x > 0 && x > y)
 		{
-			lookDir = lookState.right;
+			look(lookState.right);
 		}
-		else if(moveDir.x < 0 && moveDir.x < moveDir.y)
+		else if(x < 0 && x < y)
 		{
-			lookDir = lookState.left;
+			look(lookState.left);
 		}
-		else if(moveDir.y < 0 && moveDir.y < moveDir.x)
+		else if(y < 0 && y < x)
 		{
-			lookDir = lookState.up;
+			look(lookState.up);
 		}
 		else
 		{
-			lookDir = lookState.down;
+			look(lookState.down);
 		}
-
 		// FIXME: should we call thought.move as well?
+	};
+
+	var look = function(dir) {
+		lookDir = dir;
 	};
 
 	var stop = function() {
@@ -96,9 +99,75 @@ var Person = function (x, y, key, name, startDir) {
 		});
 	};
 
+	var thoughtTimer = 0;
+	var currentThought = null;
+
+	var doThought = function () {
+		if(currentThought === null){
+			return;
+		}
+	};
+
+	var actionTimer = 0;
+	var actionQueue = [];
+	var repeatAction = null;
+	var pushAction = function(param) {
+		actionQueue.push(param);
+	};
+
+	// actions always are relative to the duration of the previous action
+	var doAction = function() {
+		if(actionQueue.length === 0) {
+			stop();
+			actionTimer = 0;
+			if(repeatAction !== null) {
+				if(repeatAction.times < 0) { // it must have started at zero
+					repeatAction.f(repeatAction.context, repeatAction.pause,
+						repeatAction.duration, repeatAction.dir, repeatAction.times);
+				}
+				else {
+					repeatAction.f(repeatAction.context, repeatAction.pause,
+						repeatAction.duration, repeatAction.dir, repeatAction.times - 1);
+				}
+				doAction();
+			}
+			return;
+		}
+		var action = actionQueue[0];
+		if(action.type === "move" && action.pause <= actionTimer) {
+			moving = true;
+			move(action.args.x, action.args.y);
+		}
+		else if(action.type === "stop") {
+			stop();
+		}
+		else if(action.type === "look" && action.pause <= actionTimer) {
+			look(action.args);
+		}
+		else if(action.type === "repeat") {
+			repeatAction = action.args;
+		}
+
+		doThought();
+
+		if(action.duration + action.pause <= actionTimer)
+		{
+			popAction();
+			doAction();
+		}
+	};
+
+	var popAction = function () {
+		actionTimer = 0;
+		stop();
+		actionQueue.splice(0,1);	
+	};
+
 	that.update = function (dt) {
-		shape.position.x += moveDir.x*speed*dt;
-		shape.position.y += moveDir.y*speed*dt;
+		actionTimer += dt;
+		doAction();
+		shape.position.x += moveDir.x*speed*dt * 0.016;
+		shape.position.y += moveDir.y*speed*dt * 0.016;
 
 		if (thought.text.visible) {
 			thought.move(
@@ -130,10 +199,11 @@ var Person = function (x, y, key, name, startDir) {
 	that.thought_group = thought.group;
 
 	that.shape = shape;
-	that.move = move;
-	that.stop = stop;
-	that.lookDir = lookDir;
-	that.speed = speed;
+	//that.move = move;
+	//that.stop = stop;
+	//that.speed = speed;
+	that.pushAction = pushAction;
+	that.look = look;
 
 	that.think = think;
 	that.name = name;
@@ -152,7 +222,7 @@ var LobbyInit = function () {
 
 	// lobby people
 	minorCharacters.push(Person(-1400, 1045, 'redwoman', 'Attendent2'));
-	minorCharacters.push(Person(-1410, 1156, 'backpack', 'Queue21', lookState.up));
+	minorCharacters.push(Person(-1410, 1156, 'suitwoman', 'Queue21', lookState.up));
 	minorCharacters.push(Person(-1150, 1038, 'bluewoman', 'Attendent1'));
 	minorCharacters.push(Person(-1660, 1035, 'blueman', 'Attendent3'));
 	minorCharacters.push(Person(-1910, 1045, 'bluewoman', 'Attendent4'));
@@ -161,14 +231,14 @@ var LobbyInit = function () {
 	minorCharacters.push(Person(-1150, 1231, 'redwoman', 'Queue12', lookState.up));
 	minorCharacters.push(Person(-1160, 1340, 'baldman', 'Queue13', lookState.up));
 
-	characters.push(Person(-1460, 1270, 'suitman', 'adam', lookState.right));
-	characters.push(Person(-1410, 1270, 'suitwoman', 'eve', lookState.left));
+	characters.push(Person(-1460, 1270, 'backpack', 'eve', lookState.right));
+	characters.push(Person(-1410, 1270, 'backpackman', 'adam', lookState.left));
 
 	var wait1 = Person(-1690, 1425, 'baldman', 'wait1', lookState.right);
 	MoveLib.repeat(wait1, 1000, 1000, MoveLib.walkCircleCCW);
 	minorCharacters.push(wait1);
 
-	var pace1 = Person(-1500, 1615, 'backpack', 'pace1');
+	var pace1 = Person(-1500, 1615, 'suitman', 'pace1');
 	MoveLib.repeat(pace1, 1000, 6000, MoveLib.PaceH);
 	minorCharacters.push(pace1);
 

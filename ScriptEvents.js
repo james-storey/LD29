@@ -14,13 +14,46 @@ var Opening = function () {
 		var t = 0;
 		t = MoveLib.walkLeft(actor, 100+t, 3000);
 		t = MoveLib.walkDown(actor, 100+t, 20000);
-	}
+	};
+
+	
+
+	var nudgeToMove = function()
+	{
+		var scriptTime = 0;
+		// get pass
+
+		game.time.events.add(scriptTime, MoveLib.walkUp, this, adam, 100, 3000);
+		game.time.events.add(scriptTime, (function () {eve.look(lookState.up)}),this);
+		scriptTime += 5000;
+		game.time.events.add(scriptTime, MoveLib.walkDown, this, adam, 100, 3000);
+		scriptTime += 4000;
+
+		// move to hall entry
+		game.time.events.add(scriptTime, MoveLib.walkDown, this, adam, 100, 6000);
+		game.time.events.add(scriptTime, MoveLib.walkDown, this, eve, 100, 6000);
+		scriptTime += 6000;
+
+		game.time.events.add(scriptTime, MoveLib.walkRight, this, adam, 100, 12000);
+		game.time.events.add(scriptTime, MoveLib.walkRight, this, eve, 100, 12000);
+		scriptTime += 12000;
+		
+	};
 
 	var start = function()
 	{
+
+		var playerListener = function (paramObj) {
+			console.log(paramObj);
+			if(waitForNudge && paramObj.nudging)
+			{
+				waitForNudge = false;
+				nudgeToMove();
+			}
+		};
 		console.log("start Opening")
-		adam = characters[0];
-		eve = characters[1];
+		adam = characters[1];
+		eve = characters[0];
 		attendant = minorCharacters[0];
 		linePerson = minorCharacters[1];
 
@@ -42,51 +75,14 @@ var Opening = function () {
 		adam.thought.load("adam", "to_eve");
 		eve.thought.load("eve", "to_adam");
 
-		scriptTime += 1000;
-		game.time.events.add(scriptTime, eve.think, eve, 3000);
-
-		scriptTime += 4000;
-		game.time.events.add(scriptTime, adam.think, adam, 3000);
-
-		scriptTime += 4000;
-		game.time.events.add(scriptTime, adam.think, adam, 3000);
-
-		// line moves
-		scriptTime += 3000;
-		game.time.events.add(scriptTime, lineMove, this, linePerson, scriptTime);
-
-		// nudge to move on
-		scriptTime + 5000;
-		game.time.events.add(scriptTime, (function() { waitForNudge = true }), this);
-
-
-
-		// switch to move on
+		adam.look(lookState.left);
+		eve.look(lookState.right);
+		
+		
 
 	};
-
-	var nudgeToMove = function()
-	{
-		var scriptTime = 0;
-		// get pass
-
-		// move to hall entry
-	};
-
-	var playerListener = function (paramObj) {
-		var nudging = paramObj.nudging;
-		var x = paramObj.x;
-		var y = paramObj.y;
-		var switching = paramObj.switching;
-		if(waitForNudge && nudging)
-		{
-			waitForNudge = false;
-			nudgeToMove();
-		}
-	}
 
 	that.start = start;
-	//that.update = update;
 
 	return that;
 }();

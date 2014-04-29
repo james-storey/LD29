@@ -121,7 +121,7 @@ var Program = function () {
 	var update = function () {
 		var pTime = currentTime || 0;
 		currentTime = game.time.now;
-		var dTime = (currentTime - pTime) * 0.016;
+		var dTime = (currentTime - pTime);
 
 		if(debugMode.justPressed(50) && that.isDebugMode === false)
 		{

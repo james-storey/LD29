@@ -2,7 +2,7 @@
 
 var Player = function (startingBody) {
 	var that = {};
-
+	that.signal = new Phaser.Signal();
 	var keyAction = false;
 	that.nudging = false;
 
@@ -35,6 +35,7 @@ var Player = function (startingBody) {
 	};
 
 	var nudge = function(x,y) {
+		that.signal.dispatch({nudging:true, "x": x, "y": y })
 		if(!game.tweens.isTweening(currentAttachment.shape)){
 			var nudgetween = game.add.tween(currentAttachment.shape);
 			if(x != 0)nudgetween.to({x: currentAttachment.shape.position.x + x*25}, 100, Phaser.Easing.Linear.None, true)
@@ -142,7 +143,7 @@ var Player = function (startingBody) {
 	that.shape = shape;
 	that.nudge = nudge;
 	that.update = update;
-	that.signal = new Phaser.Signal();
+	
 	that.debugMode = debugMode;
 	that.switchBodies = switchBodies;
 	that.currentAttachment = currentAttachment;

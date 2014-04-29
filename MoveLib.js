@@ -1,88 +1,83 @@
+var PersonAction = function (type, pause, duration, args)
+{
+	action = {};
+	action.type = type;
+	action.pause = pause || 0;
+	action.duration = duration || 0;
+	action.args = args;
 
+	return action;
+};
 
 var MoveLib = function () {
 	var that = {};
 
-	var repeat = function (context, pauseTime, walkTime, f, dir)
+	var repeat = function (context, pauseTime, walkTime, f, dir, times)
 	{
-		var cTime = f(context, pauseTime, walkTime, dir);
-		game.time.events.add(cTime, repeat, this, context, pauseTime, walkTime, f, dir);
+		f(context, pauseTime, walkTime, dir);
+		if(times !== 0) {
+			context.pushAction(PersonAction("repeat", 0, 0, {"f": f, "context": context, 
+				"pause": pauseTime, "duration": walkTime, "dir": dir, "times": times}));
+		}
 	}
 
 	var PaceH = function (context, pauseTime, walkTime, dir) {
-		var cTime = pauseTime;
 		var d = dir || 1;
-		game.time.events.add(cTime, context.move, context, 1*d, 0);
-		cTime += walkTime;
-		game.time.events.add(cTime, context.stop, context);
-		cTime += pauseTime;
-		game.time.events.add(cTime, context.move, context, -1*d, 0);
-		cTime += walkTime;
-		game.time.events.add(cTime, context.stop, context);
-		return cTime;
+		if(d === 1)
+		{
+			walkRight(context, pauseTime, walkTime);
+			walkLeft(context, pauseTime, walkTime);
+		}
+		else
+		{
+			walkLeft(context, pauseTime, walkTime);
+			walkRight(context, pauseTime, walkTime);
+		}
 	};
 
 	var PaceV = function (context,pauseTime, walkTime, dir) {
-		var cTime = pauseTime;
 		var d = dir || 1;
-		game.time.events.add(cTime, context.move, context, 0, 1*d);
-		cTime += walkTime;
-		game.time.events.add(cTime, context.stop, context);
-		cTime += pauseTime;
-		game.time.events.add(cTime, context.move, context, 0, -1*d);
-		cTime += walkTime;
-		game.time.events.add(cTime, context.stop, context);
-		return cTime;
+		if(d === 1)
+		{
+			walkDown(context, pauseTime, walkTime);
+			walkUp(context, pauseTime, walkTime);
+		}
+		else
+		{
+			walkUp(context, pauseTime, walkTime);
+			walkDown(context, pauseTime, walkTime);
+		}
 	};
 
 	var walkCircleCCW = function (context, pauseTime, walkTime)
 	{
-		var cTime = walkLeft(context, pauseTime, walkTime);
-		cTime = walkDown(context, cTime + pauseTime, walkTime);
-		cTime = walkRight(context, cTime + pauseTime, walkTime);
-		cTime = walkUp(context, cTime + pauseTime, walkTime);
-		return cTime;
+		walkLeft(context, pauseTime, walkTime);
+		walkDown(context, pauseTime, walkTime);
+		walkRight(context, pauseTime, walkTime);
+		walkUp(context, pauseTime, walkTime);
 	};
 
 	var walkCircleCW = function (context, pauseTime, walkTime)
 	{
-		var cTime = walkRight(context, pauseTime, walkTime);
-		cTime = walkUp(context, pauseTime, walkTime);
-		cTime = walkLeft(context, pauseTime, walkTime);
-		cTime = walkDown(context, pauseTime, walkTime);
-		return cTime;
+		walkRight(context, pauseTime, walkTime);
+		walkUp(context, pauseTime, walkTime);
+		walkLeft(context, pauseTime, walkTime);
+		walkDown(context, pauseTime, walkTime);
 	};
 
 	var walkLeft = function (context, delay, walkTime) {
-		var cTime = delay;
-		game.time.events.add(cTime, context.move, context, -1, 0);
-		cTime += walkTime;
-		game.time.events.add(cTime, context.stop, context);
-		return cTime;
+		context.pushAction(PersonAction("move", delay, walkTime, {x: -1, y: 0}));
 	};
 
 	var walkRight = function (context, delay, walkTime) {
-		var cTime = delay;
-		game.time.events.add(cTime, context.move, context, 1, 0);
-		cTime += walkTime;
-		game.time.events.add(cTime, context.stop, context);
-		return cTime;
+		context.pushAction(PersonAction("move", delay, walkTime, {x: 1, y: 0}));
 	};
 	var walkUp = function (context, delay, walkTime) {
-		var cTime = delay;
-		game.time.events.add(cTime, context.move, context, 0, -1);
-		cTime += walkTime;
-		game.time.events.add(cTime, context.stop, context);
-		return cTime;
+		context.pushAction(PersonAction("move", delay, walkTime, {x: 0, y: -1}));
 	};
 	var walkDown = function (context, delay, walkTime) {
-		var cTime = delay;
-		game.time.events.add(cTime, context.move, context, 0, 1);
-		cTime += walkTime;
-		game.time.events.add(cTime, context.stop, context);
-		return cTime;
+		context.pushAction(PersonAction("move", delay, walkTime, {x: 0, y: 1}));
 	};
-
 
 	that.repeat = repeat;
 	that.PaceH = PaceH;
